@@ -1,5 +1,6 @@
 package com.clozet.model.dto;
 
+import com.clozet.model.entity.ProductDetail;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -18,18 +19,19 @@ public class ProductDto {
     private String category;
     private String content;
     private String thumbnail;
+    private List<ProductDetailDto> productDetail;
     private List<String> imgUrl;
     private LocalDateTime createdDate;
 
     @Override
     public String toString() {
-
         return "ProductDto{" +
                 "prodNo=" + prodNo +
                 ", title='" + title + '\'' +
                 ", category='" + category + '\'' +
                 ", content='" + content + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
+                ", productDetail=" + productDetail +
                 ", imgUrl=" + imgUrl +
                 ", createdDate=" + createdDate +
                 '}';

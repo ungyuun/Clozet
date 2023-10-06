@@ -9,10 +9,7 @@ import java.util.Map;
 import com.clozet.Mapper.ProductMapper;
 import com.clozet.cloud.FileUpload;
 import com.clozet.model.dto.ImageDto;
-import com.clozet.model.dto.OptionDto;
-import com.clozet.model.dto.OptionDto;
 import com.clozet.model.dto.ProductDto;
-import com.clozet.model.entity.Option;
 import com.clozet.model.entity.Product;
 import com.clozet.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +42,12 @@ public class ProductController {
 
 	@PostMapping("/newproduct")
 	public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto) throws Exception {
-//		List<OptionDto> option = productDto.getOption();
 		List<String> image = productDto.getImgUrl();
+		System.out.println(productDto);
 		Product product = productService.addProduct(productDto);
-//		Long parentNo = productService.addOption(option,product);
-		System.out.println(ProductMapper.INSTANCE.toDtoProdNo(product).toString());
-		return ResponseEntity.ok(ProductMapper.INSTANCE.toDtoProdNo(product));
+//		productService.addProductDetail(product);
+		System.out.println(ProductMapper.INSTANCE.toDto(product).toString());
+		return ResponseEntity.ok(ProductMapper.INSTANCE.toDto(product));
 	}
 
 
@@ -60,7 +57,8 @@ public class ProductController {
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("product",productService.getProduct(prodNo));
-		map.put("option",productService.getOption(productService.getProduct(prodNo)));
+		map.put("productDetail",productService.getProductDetail(prodNo));
+//		System.out.println(map.get("productDetail").toString());
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 //	//@RequestMapping("/addProductView.do")

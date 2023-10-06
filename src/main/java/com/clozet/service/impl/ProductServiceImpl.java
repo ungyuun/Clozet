@@ -1,16 +1,19 @@
 package com.clozet.service.impl;
 
 import com.clozet.Mapper.ImageMapper;
-import com.clozet.Mapper.OptionMapper;
+
+import com.clozet.Mapper.ProductDetailMapper;
 import com.clozet.Mapper.ProductMapper;
 import com.clozet.model.dto.ImageDto;
-import com.clozet.model.dto.OptionDto;
+
+import com.clozet.model.dto.ProductDetailDto;
 import com.clozet.model.dto.ProductDto;
 import com.clozet.model.entity.Image;
-import com.clozet.model.entity.Option;
 import com.clozet.model.entity.Product;
+import com.clozet.model.entity.ProductDetail;
 import com.clozet.repository.ImageRepository;
-import com.clozet.repository.OptionRepository;
+
+import com.clozet.repository.ProductDetailRepository;
 import com.clozet.repository.ProductRepository;
 import com.clozet.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,10 +37,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private final ProductRepository productRepository;
     @Autowired
-    private final OptionRepository optionRepository;
+    private final ProductDetailRepository productDetailRepository;
     @Autowired
     private final ImageRepository imageRepository;
-
 
 
     @Override
@@ -48,33 +49,33 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Long addOption(List<OptionDto> options,Product product) throws Exception {
+    public Long addProductDetail(Product product) throws Exception {
 
-        for (OptionDto option : options){
-            System.out.println(option.toString());
+        List<ProductDetail> productDetailList = new ArrayList<>();
+        List<ProductDetailDto> productDetail = ProductMapper.INSTANCE.toDto(product).getProductDetail();
+        for (ProductDetailDto productDetailDto : productDetail) {
+            log.info("parentNo "+productDetailDto.getProdNo());
+            ProductDetail entity = ProductDetailMapper.INSTANCE.toEntity(productDetailDto);
+            entity.setProduct(product);
+            productDetailList.add(entity);
         }
-        List<Option> optionsList = new ArrayList<>();
-
-        for (OptionDto optionsDto : options) {
-
-            Option optionsEntity = OptionMapper.INSTANCE.toEntity(optionsDto);
-            optionsEntity.setProduct(product);
-            System.out.println(optionsEntity.toString());
-            optionsList.add(optionsEntity);
-        }
-        optionRepository.saveAll(optionsList);
-        return options.get(0).getParentNo();
+        productDetailRepository.saveAll(productDetailList);
+        return productDetail.get(0).getProdNo();
     }
 
-    @Override
-    public List<OptionDto> getOption(ProductDto productDto) throws Exception {
-        log.info("a"+ProductMapper.INSTANCE.toEntity(productDto).toString());
-        List<Option> options = optionRepository.findAllByProduct(ProductMapper.INSTANCE.toEntity(productDto));
-        log.info("a"+options.get(0));
 
-        return options.stream()
-                .map(OptionMapper.INSTANCE::toDto)
-                .collect(Collectors.toList());
+    @Override
+    public List<ProductDetailDto> getProductDetail(Long prodNo) throws Exception {
+//        log.info("a"+ProductMapper.INSTANCE.toEntity(productDto).toString());
+//        List<ProductDetail> productDetail = productDetailRepository.findAllByProduct(ProductMapper.INSTANCE.toEntity(productDto));
+        List<ProductDetail> productDetail = productDetailRepository.findAllByProduct_ProdNo(prodNo);
+
+
+
+        return ProductDetailMapper.INSTANCE.entitiesToDtos(productDetail);
+//        return productDetail.stream()
+//                .map(ProductDetailMapper.INSTANCE::toDto)
+//                .collect(Collectors.toList());
 
     }
 

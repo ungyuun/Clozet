@@ -33,7 +33,9 @@ public class Product {
     @ElementCollection
     @CollectionTable(name = "image")
     private List<String> imgUrl = new ArrayList<>();
-
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="prodNo")
+    private List<ProductDetail> productDetail = new ArrayList<>();
 
     private String thumbnail;
 
@@ -49,6 +51,7 @@ public class Product {
                 ", category='" + category + '\'' +
                 ", content='" + content + '\'' +
                 ", imgUrl=" + imgUrl +
+                ", productDetail=" + productDetail +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", createdDate=" + createdDate +
                 '}';

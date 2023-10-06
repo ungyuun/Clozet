@@ -1,8 +1,7 @@
 package com.clozet.repository;
 
-import com.clozet.model.dto.ProductDto;
-import com.clozet.model.entity.Option;
 import com.clozet.model.entity.Product;
+import com.clozet.model.entity.ProductDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +13,5 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
 
     Product findByProdNo(Long prodNo);
-    List<Option> findAllByProdNo(Long prodNo);
+    List<ProductDetail> findAllByProdNo(Long prodNo);
 }

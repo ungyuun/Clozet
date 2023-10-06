@@ -7,9 +7,9 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OptionDto {
+public class ProductDetailDto {
     private Long idx;
-    private Long parentNo;    // addProductDto의 prodNo
+    private Long prodNo;    // addProductDto의 prodNo
     private String size;
     private Long price;
     private Long amount;

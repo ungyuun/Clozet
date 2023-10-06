@@ -2,7 +2,7 @@ package com.clozet.service;
 
 
 import com.clozet.model.dto.ImageDto;
-import com.clozet.model.dto.OptionDto;
+import com.clozet.model.dto.ProductDetailDto;
 import com.clozet.model.dto.ProductDto;
 import com.clozet.model.entity.Product;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +18,7 @@ public interface ProductService {
 
 
 	public ProductDto getProduct(Long prodNo) throws Exception;
-	public Long addOption(List<OptionDto> option,Product product) throws Exception;
-	public List<OptionDto> getOption(ProductDto productDto) throws  Exception;
+	public Long addProductDetail(Product product) throws Exception;
+	public List<ProductDetailDto> getProductDetail(Long prodNo) throws  Exception;
 	public void addImage(List<ImageDto> image, Product product) throws Exception;
 }
