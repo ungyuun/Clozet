@@ -36,7 +36,7 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="prodNo")
     private List<ProductDetail> productDetail = new ArrayList<>();
-
+    private Long price;
     private String thumbnail;
 
     @CreatedDate

@@ -23,7 +23,6 @@ public class ProductDetail {
     @JoinColumn(name = "prodNo", referencedColumnName = "prodNo")
     private Product product; // 외래 키를 참조하는 관계 설정
     private String size;
-    private Long price;
     private Long amount;
 
 }

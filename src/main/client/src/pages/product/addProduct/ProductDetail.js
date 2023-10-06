@@ -5,12 +5,11 @@ import ImageUpload from '../../common/ImageUpload'
 import DeleteImage from './DeleteImage';
 
 
-function ProductDetail({options,setOptions,onDeleteClick}){
+function ProductDetail({options,setOptions,price,setPrice}){
 
     
     const [size,setSize]=useState();
     const [amount,setAmount] = useState(0);
-    const [price,setPrice] = useState(0);
     
 
 
@@ -38,7 +37,7 @@ function ProductDetail({options,setOptions,onDeleteClick}){
 
     const addOption = (index) => {
         console.log(`index : ${index}`)
-        setOptions([ ...options,{size:size,price:price,amount:amount}]);     
+        setOptions([ ...options,{size:size,amount:amount}]);     
     };  
 
     const deleteOption = (index) =>{
@@ -53,8 +52,8 @@ function ProductDetail({options,setOptions,onDeleteClick}){
             <Row className='mt-5'>                 
             <Col md="7">
             <Row>
-                <Col md="2">
-                    
+                <Col md="3">
+                    <h4>재고 지정</h4>
                 </Col>
                 <Col md="2">
                 <Form.Select className='p-2' 
@@ -73,19 +72,7 @@ function ProductDetail({options,setOptions,onDeleteClick}){
                     <option value="FREE">FREE</option>
                 </Form.Select>
                 </Col>
-                <Col md="3">
-                    <InputGroup>
-                        <Form.Control
-                        placeholder="가격"
-                        value={price}
-                        
-                        onChange={(e)=>{ setPrice(parseInt(e.target.value)) }}
-                        />
-                        <Button variant="primary" onClick={priceIncrease}>+</Button>
-                        <Button variant="danger" onClick={priceDecrease}>-</Button>
-                        
-                    </InputGroup>
-                </Col>
+                
                 <Col md="3">
                     <InputGroup>
                         <Form.Control
@@ -103,18 +90,37 @@ function ProductDetail({options,setOptions,onDeleteClick}){
                 </Col>
                 <Row className='mt-1'>
                     {options.map((option,index)=>(
-                        <InputGroup key={index} className='mt-1'>
-                                <Form.Control
-                                placeholder={`${option.size}/${option.price}/${option.amount}`}
-                                disabled
-                            />
-                            <Button variant="danger" onClick={deleteOption}>
-                                삭제
-                            </Button>
-                        </InputGroup>
+                        <Col md="9">
+                            <InputGroup key={index} className='mt-1'>
+                                    <Form.Control
+                                    placeholder={`${option.size}/${option.amount}`}
+                                    disabled
+                                />
+                                <Button variant="danger" onClick={deleteOption}>
+                                    삭제
+                                </Button>
+                            </InputGroup>
+                        </Col>
                     ))}
                 </Row>
             </Row>
+            </Col>
+            <Col md="1">
+                <h4>가격</h4>
+            </Col>
+            <Col md="3">
+                <InputGroup>
+                    <Form.Control
+                    placeholder="가격"
+                    value={price}
+                    
+                    onChange={(e)=>{ setPrice(parseInt(e.target.value)) }}
+                    />
+                    <Button variant="primary" onClick={priceIncrease}>+</Button>
+                    <Button variant="danger" onClick={priceDecrease}>-</Button>
+                    
+                </InputGroup>
+            
             </Col>
             </Row>
         

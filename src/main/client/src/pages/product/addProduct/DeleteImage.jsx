@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Row, Col,Container,Image, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 function DeleteImage({ imgSrc, onDeleteClick }) {
     const [isDeleteIconVisible, setDeleteIconVisible] = useState(false);
@@ -14,11 +14,13 @@ function DeleteImage({ imgSrc, onDeleteClick }) {
   
     return (
       <div
-        className="image-container"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <Image src={imgSrc} alt="이미지" fluid />
+        
+          <Image className="profile-image-container" src={imgSrc} alt="이미지" fluid />
+        
+        
         {isDeleteIconVisible && (
           <OverlayTrigger
             placement="top"
@@ -34,6 +36,8 @@ function DeleteImage({ imgSrc, onDeleteClick }) {
             </Button>
           </OverlayTrigger>
         )}
+        
+        
       </div>
     );
   }

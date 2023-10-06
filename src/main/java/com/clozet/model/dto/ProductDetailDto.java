@@ -11,7 +11,6 @@ public class ProductDetailDto {
     private Long idx;
     private Long prodNo;    // addProductDto의 prodNo
     private String size;
-    private Long price;
     private Long amount;
 
 
