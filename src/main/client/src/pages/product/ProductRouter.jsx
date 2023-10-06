@@ -5,7 +5,7 @@ import Product from "../product/getProduct/Product"
 function ProductRouter(){
     return(
         <Routes>
-            <Route path="getProduct/:prodNo" element={<Product />}/>
+            <Route path="/:prodNo" element={<Product />}/>
             <Route />
         </Routes>
     );

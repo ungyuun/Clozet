@@ -36,7 +36,7 @@ function ProductForm(){
           })
           .then((response) => {
             const prodNo = response.data.prodNo; 
-            navigate(`/product/getProduct/${prodNo}`);
+            navigate(`/product/${prodNo}`);
           })
           .catch((error) => {
             console.log(`error : ${error}`);
