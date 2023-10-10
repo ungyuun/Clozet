@@ -18,6 +18,9 @@ import com.clozet.repository.ProductRepository;
 import com.clozet.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -103,5 +106,13 @@ public class ProductServiceImpl implements ProductService {
         }
         imageRepository.saveAll(imageList);
     }
+
+    @Override
+    public Page<Product> getProductList(int page, int size) throws Exception {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findAll(pageable);
+
+    }
+
 }
 

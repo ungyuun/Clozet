@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
+    
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.projectlombok:lombok:1.18.28'
     testImplementation 'org.projectlombok:lombok:1.18.28'
@@ -31,14 +31,14 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
 
-
     //클라우드 사용 의존성
     implementation platform('software.amazon.awssdk:bom:2.20.56')
     implementation 'software.amazon.awssdk:s3:'
     implementation 'software.amazon.awssdk:sso'
     implementation 'software.amazon.awssdk:ssooidc'
-    implementation 'org.slf4j:slf4j-simple:2.0.5'
+
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.13'
+
 // 파일 업로드를 위한 의존성 추가
     //https://mvnrepository.com/artifact/commons-io/commons-io
     implementation 'commons-io:commons-io:2.6'
@@ -51,6 +51,7 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 //    [출처] [개발자 경험기] 편리한 객체 간 매핑을 위한 MapStruct 적용기 (feat. SENS)|작성자 NAVER Cloud Platform
 
+    implementation 'org.slf4j:slf4j-simple:2.0.5'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //    testImplementation 'org.springframework.security:spring-security-test'

@@ -22,7 +22,7 @@ function ProductHeader({data}){
                     </div>
                     <div className="image-container">
                         {data.product.imgUrl.map((imgUrl,index)=>(
-                             <div
+                            <div
                                 className={`img-wrapper ${hoveredIndex === index ? 'hovered' : ''}`}
                                 key={index}
                                 onMouseEnter={() => setHoveredIndex(imgUrl)}

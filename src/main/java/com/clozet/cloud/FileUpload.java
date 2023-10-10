@@ -29,7 +29,7 @@ import java.util.List;
 public class FileUpload {
     private final S3Config s3Config;
     
-    public String tempFileUpload(String folderName, MultipartFile multipartFile) throws IOException {
+    public String tempFileUpload(MultipartFile multipartFile) throws IOException {
         // axios로 받은 file의 정보를 사용해 NCP의 Object Storage에 저장
         String originalFilename = multipartFile.getOriginalFilename();
 
@@ -40,16 +40,16 @@ public class FileUpload {
         s3Config.getS3().putObject(s3Config.getBucketName(), originalFilename, multipartFile.getInputStream(), metadata);
         setObjectACL(s3Config.getBucketName(), originalFilename);  // 저장하고 Access 권한까지 업데이트 해줘야함
         return s3Config.getS3().getUrl(s3Config.getBucketName(), originalFilename).toString();
-
     }
     public void setObjectACL(String bucketName,String objectName){
         try {
-            // get the current ACL
+            // 현재 ACL의 정보를 가져온다
             AccessControlList accessControlList = s3Config.getS3().getObjectAcl(bucketName, objectName);
 
-            // add read permission to user by ID
+            // 읽기권한을 모든 유저에게 줌
             accessControlList.grantPermission(GroupGrantee.AllUsers, Permission.Read);
 
+            //설정을 버킷에 적용시킨다.
             s3Config.getS3().setObjectAcl(bucketName, objectName, accessControlList);
         } catch (AmazonS3Exception e) {
             e.printStackTrace();
@@ -57,29 +57,6 @@ public class FileUpload {
             e.printStackTrace();
         }
     }
-
-//    public void download(){
-//        try {
-//            S3Object s3Object = s3Config.getS3().getObject(s3Config.getBucketName(),"shopClassDiagram.png");
-//            S3ObjectInputStream s3ObjectInputStream = s3Object.getObjectContent();
-//
-//            OutputStream outputStream = new BufferedOutputStream(new FileOutputStream("/shopClassDiagram.png"));
-//            byte[] bytesArray = new byte[4096];
-//            int bytesRead = -1;
-//            while ((bytesRead = s3ObjectInputStream.read(bytesArray)) != -1) {
-//                outputStream.write(bytesArray, 0, bytesRead);
-//            }
-//
-//            outputStream.close();
-//            s3ObjectInputStream.close();
-//        } catch (AmazonS3Exception e) {
-//            e.printStackTrace();
-//        } catch(SdkClientException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
 
 }

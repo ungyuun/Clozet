@@ -34,6 +34,7 @@ public class Product {
     @CollectionTable(name = "image")
     private List<String> imgUrl = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinColumn(name="prodNo")
     private List<ProductDetail> productDetail = new ArrayList<>();
     private Long price;

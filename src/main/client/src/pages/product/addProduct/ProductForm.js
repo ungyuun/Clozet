@@ -31,7 +31,8 @@ function ProductForm(){
             content: editorData,
             thumbnail : thumbnail,
             productDetail: options,
-            imgUrl : imgUrl
+            imgUrl : imgUrl,
+            price : price
           };
           console.log(JSON.stringify(formData));
           axios.post("http://localhost:8081/product/newproduct",formData,{

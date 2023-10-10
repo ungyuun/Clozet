@@ -32,6 +32,7 @@ public class ProductDto {
                 ", category='" + category + '\'' +
                 ", content='" + content + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
+                ", price=" + price +
                 ", productDetail=" + productDetail +
                 ", imgUrl=" + imgUrl +
                 ", createdDate=" + createdDate +
