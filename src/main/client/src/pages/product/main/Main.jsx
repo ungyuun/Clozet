@@ -3,9 +3,7 @@ import {useInfiniteQuery,useQueryClient} from "react-query";
 import { useInView } from "react-intersection-observer";
 import axios from "axios";
 
-// import End from "./End";
 import Card from "./Card";
-// import { FormProvider } from "react-hook-form";
 
 function Main() {
   
@@ -13,32 +11,27 @@ function Main() {
   const [ref,inView] = useInView();
   const queryClient = useQueryClient();
   const { data, status, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery("products", ({ page = 0 }) => getProduct(now), {
-      refetchOnWindowFocus: true,
+    useInfiniteQuery("products", ({ pageParam = 0 }) => getProduct(pageParam), {
+      select: data => ({
+        pages: data.pages,
+        nextPage: data.pages.length+1,
+        pageParam: data.pageParams,
+      }),
       getNextPageParam: (lastPage, allPages) => {
-        if (!lastPage.isLast) {
-          console.log(`last: ${lastPage.nextPage}`)
-          return lastPage.nextPage;
-        } else {
-          return undefined;
-        }
-      },
+        const nextPage = allPages.length;
+        return lastPage.nextPage === 0 ? undefined : nextPage;},
     });
 
   async function getProduct(page) {
     const res = await axios.get(`http://localhost:8081/product/main?page=${page}`);
     const result = res.data;
-    console.log(result);
-    setNow(now+1);
     return {
       result: result.content,
-      nextPage: now + 1,
       isLast: res.data.last
     };
   
   }
   useEffect(() => {
-    console.log(data)
     if (inView && hasNextPage) {
       fetchNextPage({
         page: data.nextPage,
@@ -46,29 +39,20 @@ function Main() {
     }
   }, [inView, hasNextPage]);
   useEffect(() => {
-    console.log(inView);
   }, [inView]);
   useEffect(() => {
     return () => {
-      // 페이지를 떠날 때 데이터 초기화
       queryClient.invalidateQueries("products");
     };
   }, []);
 
   return (
-    // <div>
-    //   {data ? (
-    //     <Card lastItemRef={ref} listdata={data.pages.map((item) => item.result).flat()} />
-    //   ) : (
-    //     <div>Loading...</div>
-    //   )}
-    // </div>
     <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
       {data ? (
         data.pages.map((item) =>
           item.result.map((list, idx) =>
             
-              <Card  lastItemRef={idx === item.result.length - 1 ? ref : null} index={idx} data={list} />
+              <Card  lastItemRef={idx === item.result.length - 1 ? ref : null} index={idx} data={list} setNow={setNow} />
             )
           )
       ) : (
