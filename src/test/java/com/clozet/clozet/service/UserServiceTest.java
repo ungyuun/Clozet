@@ -1,9 +1,5 @@
 package com.clozet.clozet.service;
 
-import com.clozet.model.dto.UserDto;
-
-import java.util.Map;
-
 public interface UserServiceTest {
 
     void addUser() throws Exception;

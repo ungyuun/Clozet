@@ -4,10 +4,9 @@ import { useInView } from "react-intersection-observer";
 import axios from "axios";
 
 import Card from "./Card";
-
+//https://s0ojin.tistory.com/58 참고
 function Main() {
   
-  const [now,setNow] = useState(0);
   const [ref,inView] = useInView();
   const queryClient = useQueryClient();
   const { data, status, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -52,7 +51,7 @@ function Main() {
         data.pages.map((item) =>
           item.result.map((list, idx) =>
             
-              <Card  lastItemRef={idx === item.result.length - 1 ? ref : null} index={idx} data={list} setNow={setNow} />
+              <Card  lastItemRef={idx === item.result.length - 1 ? ref : null} index={idx} data={list} />
             )
           )
       ) : (
@@ -60,6 +59,7 @@ function Main() {
       )}
     
     </div>
+
   );
     
 }

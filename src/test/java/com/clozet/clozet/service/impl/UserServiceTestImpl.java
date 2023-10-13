@@ -2,11 +2,8 @@ package com.clozet.clozet.service.impl;
 
 
 import com.clozet.clozet.service.UserServiceTest;
-import com.clozet.model.dto.UserDto;
 import com.clozet.model.entity.User;
-import com.clozet.repository.UserRepository;
 import com.clozet.service.UserService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

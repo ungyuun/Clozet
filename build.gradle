@@ -39,6 +39,12 @@ dependencies {
 
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.13'
 
+    implementation 'org.json:json:20200518'
+    //시큐리티 적용
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client:2.6.2'
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
 // 파일 업로드를 위한 의존성 추가
     //https://mvnrepository.com/artifact/commons-io/commons-io
     implementation 'commons-io:commons-io:2.6'

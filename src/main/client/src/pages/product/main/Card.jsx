@@ -3,11 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
-function Card({ data, lastItemRef,index,setNow}){
+function Card({ data, lastItemRef,index}){
     const navigate = useNavigate();
     const handleCardClick = () => {
         navigate(`/product/view/${data.prodNo}`);
-        setNow(0);
       };
     return (
 
