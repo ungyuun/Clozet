@@ -11,14 +11,18 @@ function ProductHeader({data}){
     return(
         <Container>
             <Row>
-                <h1>{data.product.title}</h1>
+                
+                <h4>{data.product.title}</h4>
+                <hr />
             </Row>
             <Row>        
-                <Col id="header" md={5}>                                        
-                    <img src={hoveredIndex}></img>
+                <Col id="header" md={6}>                                        
+                    <div className="d-flex justify-content-center">
+                        <img src={hoveredIndex} alt="Thumbnail" className="d-block mx-auto" />
+                    </div>
                     <div className="image-container">
                         {data.product.imgUrl.map((imgUrl,index)=>(
-                             <div
+                            <div
                                 className={`img-wrapper ${hoveredIndex === index ? 'hovered' : ''}`}
                                 key={index}
                                 onMouseEnter={() => setHoveredIndex(imgUrl)}
@@ -29,7 +33,14 @@ function ProductHeader({data}){
                         ))}                    
                     </div>
                 </Col>
+<<<<<<< HEAD
                 <Col md={7}>2 of 2</Col>
+=======
+                <Col md={6}>
+                    {data.product.price}
+
+                </Col>
+>>>>>>> develop
             </Row>
       </Container>
         

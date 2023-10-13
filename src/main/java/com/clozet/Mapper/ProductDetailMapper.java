@@ -24,7 +24,6 @@ public interface ProductDetailMapper{
                 .idx(entity.getIdx())
                 .prodNo(entity.getProduct() != null ? entity.getProduct().getProdNo() : null)
                 .size(entity.getSize())
-                .price(entity.getPrice())
                 .amount(entity.getAmount())
                 .build();
     }

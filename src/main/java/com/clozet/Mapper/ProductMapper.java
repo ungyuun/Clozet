@@ -10,6 +10,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface ProductMapper{
     ProductMapper INSTANCE = Mappers.getMapper( ProductMapper.class );
@@ -21,4 +23,5 @@ public interface ProductMapper{
 
     Product toEntity(ProductDto productDto);
     ProductDetail map(ProductDetailDto value);
+    List<ProductDto> toDtoList(List<Product> products);
 }

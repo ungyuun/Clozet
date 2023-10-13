@@ -1,16 +1,21 @@
 package com.clozet.controller;
 
+import com.clozet.Mapper.ProductMapper;
+import com.clozet.auth.PrincipalDetails;
+import com.clozet.model.dto.KakaoTokenDto;
+import com.clozet.model.dto.ProductDto;
 import com.clozet.model.dto.UserDto;
+import com.clozet.model.entity.Role;
+import com.clozet.model.entity.User;
+import com.clozet.repository.UserRepository;
 import com.clozet.service.UserService;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 
@@ -19,18 +24,49 @@ import java.util.Map;
 @RequestMapping("/user/*")
 public class UserController {
 
-	//setter Method 구현 않음
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	@Autowired
+	private UserService userService;
 
-	public UserController(){
-		System.out.println(this.getClass());
+	@GetMapping("/loginForm")
+	public String loginForm(){
+		return "login";
+	}
+	@GetMapping("/kakao/callback")
+	public ResponseEntity<Map<String,Object>> kakaoLogin(@RequestParam("code")String code) throws Exception {
+		// authorizedCode: 카카오 서버로부터 받은 인가 코드
+		System.out.println("code : "+code);
+		Map<String,Object> map = userService.kakaoLogin(code);
+		return ResponseEntity.ok(map);
 	}
 
-	@PostMapping("/")
-	public void info(@RequestBody String user)
-	{
-		System.out.println(user);
+	@GetMapping("/joinForm")
+	public String joinForm(){
+		return "join";
 	}
-//
+
+	@GetMapping("/user")
+	@ResponseBody
+	public String user(){
+		return "user";
+	}
+
+	@GetMapping("/manager")
+	@ResponseBody
+	public String manager(){
+		return "manager";
+	}
+
+	@GetMapping("/admin")
+	@ResponseBody
+	public String admin(){
+		return "admin";
+	}
+
+
 //	@Value("#{commonProperties['pageUnit']}")
 //	int pageUnit;
 //	@Value("#{commonProperties['pageSize']}")

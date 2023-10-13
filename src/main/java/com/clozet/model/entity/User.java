@@ -1,47 +1,38 @@
 package com.clozet.model.entity;
 
+import javax.management.relation.Role;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Date;
-
+//https://sudo-minz.tistory.com/78
+//https://growth-coder.tistory.com/188
 @Entity
-@Getter
+@Getter @ToString
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
 
 
+    // ID가 자동으로 생성 및 증가합니다.
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @Column(length=30)
-    private String userId;
+    private Long id;
 
-    @Column(length=30)
-    private String userName;
+    // 반드시 값을 가지도록 합니다.
+    @Column(nullable = false)
+    private String nickname;
 
-    @Column(length=30)
-    private String password;
 
-    @Column(length=20)
-    private String role;
-
-    @Column(length=30)
-    private String ssn;
-
-    @Column(name="cell_phone")
-    private String phone;
-
-    @Column(length=30)
+    @Column(nullable = false)
     private String email;
 
-    @Column(name="reg_date")
-    private Date regDate;
+
+
 
 }

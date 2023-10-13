@@ -5,13 +5,13 @@ import {useState,useEffect} from 'react';
 
 import Content from './Content';
 import ProductHeader from './ProductHeader';
-import Comment from './Comment';
+// import Comment from './Comment';
 
 function Product(){
     const { prodNo  } = useParams();
     const [data,setData] = useState();
     useEffect(() => {
-      axios.get(`http://localhost:8081/product/${prodNo}`) 
+      axios.get(`http://localhost:8081/product/view/${prodNo}`) 
               .then((response) => {
                 console.log("GET 요청 성공");
                 console.log(response.data);

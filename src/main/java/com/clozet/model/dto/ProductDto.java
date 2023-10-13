@@ -19,6 +19,7 @@ public class ProductDto {
     private String category;
     private String content;
     private String thumbnail;
+    private Long price;
     private List<ProductDetailDto> productDetail;
     private List<String> imgUrl;
     private LocalDateTime createdDate;
@@ -31,6 +32,7 @@ public class ProductDto {
                 ", category='" + category + '\'' +
                 ", content='" + content + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
+                ", price=" + price +
                 ", productDetail=" + productDetail +
                 ", imgUrl=" + imgUrl +
                 ", createdDate=" + createdDate +

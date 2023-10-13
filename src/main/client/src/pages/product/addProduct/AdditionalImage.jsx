@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
-
+import {  Row, Col,Container} from 'react-bootstrap';
 import ImageUpload from '../../common/ImageUpload';
 import DeleteImage from './DeleteImage';
+import styles from "../../../styles/product.css";
 
 function AdditionalImage({img,setImg}) {
     const optionNo = useRef(0);
@@ -40,8 +41,10 @@ function AdditionalImage({img,setImg}) {
     };
 
   return (
-    <div>
+    <Container>
+      <Row>
         {img.map((item, index) => (
+          <Col key={index} md={3}>
             <DeleteImage
             key={index}
             imgSrc={item}
@@ -50,13 +53,17 @@ function AdditionalImage({img,setImg}) {
               const updatedImages = [...img];
               updatedImages.splice(index, 1); // 해당 인덱스의 이미지 제거
               setImg(updatedImages);
-            }}
-          />
-        ))}
-      <img className="profile-image-container" src={`/images/image_icon-icons.com_50366.png`} alt="옵션 이미지" onClick={()=>handleClick(99)} />
-      <ImageUpload onImageUpload={handleImageUpload} ref={thumbnail} />;
-      <ImageUpload onImageUpload={handleImageUpdate} ref={option} />;
-    </div>
+              }}
+            />
+            </Col>
+          ))}
+        <Col md={3}>
+          <img className="profile-image-container" src={`/images/image_icon-icons.com_50366.png`} alt="옵션 이미지" onClick={()=>handleClick(99)} />
+        </Col>
+        <ImageUpload onImageUpload={handleImageUpload} ref={thumbnail} />
+        <ImageUpload onImageUpload={handleImageUpdate} ref={option} />
+      </Row>
+    </Container>
   );
 }
 

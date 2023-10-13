@@ -19,7 +19,7 @@ function Thumbnail({img,setImg}) {
         <>
             <img className="profile-image-container" src={img} alt="프로필 이미지" onClick={handleClick} />
             
-            <ImageUpload onImageUpload={handleImageUpload} ref={inputRef} />;
+            <ImageUpload onImageUpload={handleImageUpload} ref={inputRef} />
         </>
     );
 }

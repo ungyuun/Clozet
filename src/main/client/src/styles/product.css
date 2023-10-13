@@ -5,6 +5,7 @@
     max-height: 200px; /* 최대 높이 설정 */
     width: auto; /* 너비 자동으로 조절 (비율 유지) */
     height: auto; /* 높이 자동으로 조절 (비율 유지) */
+    max-width: 100%;
   }
 
 .profile-image-container {
@@ -30,6 +31,35 @@
 }
 
 .img-wrapper img {
-  max-width: 100%; /* 이미지가 부모 컨테이너를 벗어나지 않도록 함 */
+  max-height: 100%;
+   /* 이미지가 부모 컨테이너를 벗어나지 않도록 함 */
 }
 
+.profile-image-container{
+  max-width: 200px; /* 최대 너비 설정 */
+  max-height: 200px; /* 최대 높이 설정 */
+  width: auto; /* 너비 자동으로 조절 (비율 유지) */
+  height: auto; /* 높이 자동으로 조절 (비율 유지) */
+  padding: 8px; /* 이미지 간 간격 설정 */
+}
+
+.product-image-container{
+  max-width: 300px; /* 최대 너비 설정 */
+  max-height: 300px; /* 최대 높이 설정 */
+  width: auto; /* 너비 자동으로 조절 (비율 유지) */
+  height: auto; /* 높이 자동으로 조절 (비율 유지) */
+}
+.card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-container {
+  text-align: right;
+}
+
+.price {
+  font-weight: bold;
+}

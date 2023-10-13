@@ -9,10 +9,16 @@ import java.util.Map;
 import com.clozet.Mapper.ProductMapper;
 import com.clozet.cloud.FileUpload;
 import com.clozet.model.dto.ImageDto;
+import com.clozet.model.dto.PageInfo;
 import com.clozet.model.dto.ProductDto;
 import com.clozet.model.entity.Product;
 import com.clozet.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/product/*")
 public class ProductController {
 
@@ -34,33 +41,40 @@ public class ProductController {
 	}
 
     @PostMapping("/img")
-	public String uploadFile(
-							 @RequestParam("file") MultipartFile file) throws IOException {
-		System.out.println("hellp");
-		return fileUpload.tempFileUpload("temp",file);
+	public String uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+		return fileUpload.tempFileUpload(file);
 	}
 
 	@PostMapping("/newproduct")
 	public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto) throws Exception {
-		List<String> image = productDto.getImgUrl();
-		System.out.println(productDto);
 		Product product = productService.addProduct(productDto);
-//		productService.addProductDetail(product);
 		System.out.println(ProductMapper.INSTANCE.toDto(product).toString());
 		return ResponseEntity.ok(ProductMapper.INSTANCE.toDto(product));
 	}
 
 
-	@GetMapping("/{prodNo}")
+	@GetMapping("/view/{prodNo}")
 	public ResponseEntity<Map<String, Object>> getProduct(@PathVariable Long prodNo) throws Exception {
-        System.out.println(prodNo);
+
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("product",productService.getProduct(prodNo));
 		map.put("productDetail",productService.getProductDetail(prodNo));
-//		System.out.println(map.get("productDetail").toString());
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
+
+	@GetMapping("/main")
+	public ResponseEntity<Page<Product>> getProductList(@RequestParam("page") int page) throws Exception {
+		System.out.println(page);
+//		List<ProductDTO.DetailResponseDTO> productDetailResponseDtoList = productService.getProductList(cursor, PageRequest.of(0,10));
+		Page<Product> productPage = productService.getProductList(page,9);
+//		PageInfo pageInfo = new PageInfo(page,size,productPage.getTotalPages(),(int)productPage.getTotalElements());
+
+//		List<Product> product = productPage.getContent();
+//		List<ProductDto> productDto = ProductMapper.INSTANCE.toDtoList(product);
+		return ResponseEntity.ok(productPage);
+	}
+
 //	//@RequestMapping("/addProductView.do")
 //	@RequestMapping(value = "addProduct",method = RequestMethod.GET)
 //	public String addProductView() throws Exception{
