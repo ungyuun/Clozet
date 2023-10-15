@@ -44,6 +44,10 @@ public class Product {
     @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
     private LocalDateTime createdDate;
 
+    @OneToMany
+    @JoinColumn(name = "prodNo")
+    private List<Cart> carts;
+
     @Override
     public String toString() {
         return "Product{" +

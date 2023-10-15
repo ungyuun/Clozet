@@ -32,6 +32,9 @@ public class User {
     @Column(nullable = false)
     private String email;
 
+    @OneToOne
+    @JoinColumn(name = "email")
+    private Cart cart;
 
 
 

@@ -8,7 +8,7 @@ import Card from "./Card";
 function Main() {
   
   const [ref,inView] = useInView();
-  const queryClient = useQueryClient();
+
   const { data, status, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery("products", ({ pageParam = 0 }) => getProduct(pageParam), {
       select: data => ({
@@ -24,6 +24,7 @@ function Main() {
   async function getProduct(page) {
     const res = await axios.get(`http://localhost:8081/product/main?page=${page}`);
     const result = res.data;
+    console.log(result)
     return {
       result: result.content,
       isLast: res.data.last
@@ -37,13 +38,6 @@ function Main() {
       });
     }
   }, [inView, hasNextPage]);
-  useEffect(() => {
-  }, [inView]);
-  useEffect(() => {
-    return () => {
-      queryClient.invalidateQueries("products");
-    };
-  }, []);
 
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>

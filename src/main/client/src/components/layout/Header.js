@@ -1,4 +1,7 @@
+import LogoutHandler from "../../pages/user/login/LogoutHandler";
 import "../../styles/header.css"; 
+
+import { useLocation } from "react-router-dom";
 
 
 function Header() {
@@ -6,8 +9,16 @@ function Header() {
     const CLIENT_ID = process.env.REACT_APP_REST_API_KEY;
     const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URL;
     
-    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&prompt=login`;
+    const isLoggedIn = localStorage.getItem('JWT');
+    const nickname = localStorage.getItem('nickname');
 
+    const location = useLocation();
+
+    const KakaoLogin = () =>{
+        localStorage.setItem('currentPage', location.pathname);
+        window.location.href = KAKAO_AUTH_URL
+    }
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-transparent">
@@ -29,9 +40,19 @@ function Header() {
                                 <a className="nav-link disabled" aria-disabled="true">Disabled</a>
                             </li>
                         </ul>
-                        <a href={KAKAO_AUTH_URL} className="kakaobtn">
-                            <img src="/images/kakao_login_medium_narrow.png" />
-                        </a>
+                        {
+                                isLoggedIn ? (
+                                    <>
+                                        <button>{nickname}</button>
+                                        <button onClick={LogoutHandler }>로그아웃</button>
+                                    </>
+                                    
+                                ) : (
+                                    <div className="kakaobtn" onClick={KakaoLogin}>
+                                        <img src="/images/kakao_login_medium_narrow.png" />
+                                    </div>
+                                )
+                        }    
                         <form className="d-flex" role="search">
                             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
                             <button className="btn btn-outline-success" type="submit">Search</button>
