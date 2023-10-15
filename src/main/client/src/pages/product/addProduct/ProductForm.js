@@ -40,7 +40,7 @@ function ProductForm(){
           })
           .then((response) => {
             const prodNo = response.data.prodNo; 
-            navigate(`/product/${prodNo}`);
+            navigate(`/product/view/${prodNo}`);
           })
           .catch((error) => {
             console.log(`error : ${error}`);

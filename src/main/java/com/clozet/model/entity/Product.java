@@ -45,7 +45,7 @@ public class Product {
     private LocalDateTime createdDate;
 
     @OneToMany
-    @JoinColumn(name = "prodNo")
+    @JoinColumn(name = "prodNo", referencedColumnName = "prodNo")
     private List<Cart> carts;
 
     @Override
