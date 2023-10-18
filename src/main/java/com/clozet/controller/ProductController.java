@@ -8,9 +8,11 @@ import java.util.Map;
 
 import com.clozet.Mapper.ProductMapper;
 import com.clozet.cloud.FileUpload;
+import com.clozet.model.dto.CartDto;
 import com.clozet.model.dto.ImageDto;
 import com.clozet.model.dto.PageInfo;
 import com.clozet.model.dto.ProductDto;
+import com.clozet.model.entity.Cart;
 import com.clozet.model.entity.Product;
 import com.clozet.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,16 +67,23 @@ public class ProductController {
 
 	@GetMapping("/main")
 	public ResponseEntity<Page<Product>> getProductList(@RequestParam("page") int page) throws Exception {
-		System.out.println(page);
-//		List<ProductDTO.DetailResponseDTO> productDetailResponseDtoList = productService.getProductList(cursor, PageRequest.of(0,10));
-		Page<Product> productPage = productService.getProductList(page,9);
-//		PageInfo pageInfo = new PageInfo(page,size,productPage.getTotalPages(),(int)productPage.getTotalElements());
 
-//		List<Product> product = productPage.getContent();
-//		List<ProductDto> productDto = ProductMapper.INSTANCE.toDtoList(product);
+		Page<Product> productPage = productService.getProductList(page,9);
 		return ResponseEntity.ok(productPage);
 	}
-
+//	@GetMapping("/cart")
+//	public ResponseEntity<Void> getCart() throws Exception{
+//		System.out.println("a");
+//		return new ResponseEntity<>(HttpStatus.OK);
+//	}
+	@PostMapping("/cart")
+	public ResponseEntity<Void> addCart(@RequestBody List<CartDto> cartDtos) throws Exception{
+		for (CartDto cartDto : cartDtos){
+			System.out.println(cartDto.toString());
+		}
+		productService.addCartList(cartDtos);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 //	//@RequestMapping("/addProductView.do")
 //	@RequestMapping(value = "addProduct",method = RequestMethod.GET)
 //	public String addProductView() throws Exception{

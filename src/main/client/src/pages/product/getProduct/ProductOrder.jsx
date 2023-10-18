@@ -1,8 +1,9 @@
 import react from 'react';
 import {useState,useEffect} from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { Form, Row, Col,Button,Image,InputGroup} from 'react-bootstrap';
-
+import { Form, Row, Col,Button} from 'react-bootstrap';
+import axiosInstance from '../../common/AxiosInstance';
+import axios from 'axios';
 
 function ProductOrder({data}){
 
@@ -16,6 +17,8 @@ function ProductOrder({data}){
 
     // 해당 idx에 대한 옵션 정보 업데이트 또는 추가
         newOptions[idx] = {
+            prodNo: data.product.prodNo,
+            email:localStorage.getItem("email"),
             size: opt,
             price: price,
             amount: 1 // 초기값으로 1을 설정
@@ -80,6 +83,19 @@ function ProductOrder({data}){
     function formatMoney(amount) {
       return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
+
+    function addCart(){
+
+      axios.post("http://localhost:8081/product/cart",Object.values(options),{
+        headers: {"Content-Type": "application/json",},
+      })
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error => {
+            console.error(error);
+      })
+    }
     useEffect(()=>(
         updateSum()
     ),[options])
@@ -142,7 +158,7 @@ function ProductOrder({data}){
         <hr />
         <Row className="bottom_bt">
             <Col md={6}>
-                <Button className="primary">장바구니</Button>
+                <Button className="primary" onClick={addCart}>장바구니</Button>
             </Col>
             <Col md={6}>
                 <Button className="primary">구매</Button>

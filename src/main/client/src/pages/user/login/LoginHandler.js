@@ -19,6 +19,7 @@ const LoginHandeler = (props) => {
             localStorage.setItem('access_token',res.data.KakaoTokenDto.access_token);
             localStorage.setItem('JWT', res.data.KakaoTokenDto.id_token);
             localStorage.setItem('nickname', res.data.UserDto.nickname);
+            localStorage.setItem('email', res.data.UserDto.email);
             
           }
         console.log(res.data.KakaoTokenDto.id_token)

@@ -16,11 +16,8 @@ import java.util.List;
 @Getter @ToString
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class User {
-
-
-
 
     @Id
     private String email;
@@ -30,12 +27,8 @@ public class User {
     private String nickname;
 
 
-//
-//    @OneToOne
-//    @JoinColumn(name = "email")
-//    private Cart cart;
-    @OneToMany
-    @JoinColumn(name = "email", referencedColumnName = "email") // email 필드를 참조
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    //@JoinColumn(name = "email", referencedColumnName = "email") // email 필드를 참조
     private List<Cart> cart;
 
 
