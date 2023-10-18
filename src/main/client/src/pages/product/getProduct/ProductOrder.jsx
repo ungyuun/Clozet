@@ -2,7 +2,7 @@ import react from 'react';
 import {useState,useEffect} from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Form, Row, Col,Button} from 'react-bootstrap';
-import axiosInstance from '../../common/AxiosInstance';
+import CartModal from './CartModal';
 import axios from 'axios';
 
 function ProductOrder({data}){
@@ -164,6 +164,7 @@ function ProductOrder({data}){
                 <Button className="primary">구매</Button>
             </Col>
         </Row>
+        <CartModal />
 
             
         </>
