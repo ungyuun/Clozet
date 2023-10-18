@@ -57,7 +57,7 @@ public class ProductController {
 
 	@GetMapping("/view/{prodNo}")
 	public ResponseEntity<Map<String, Object>> getProduct(@PathVariable Long prodNo) throws Exception {
-
+		System.out.println(prodNo);
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("product",productService.getProduct(prodNo));
@@ -67,15 +67,15 @@ public class ProductController {
 
 	@GetMapping("/main")
 	public ResponseEntity<Page<Product>> getProductList(@RequestParam("page") int page) throws Exception {
-
+		System.out.println(page);
 		Page<Product> productPage = productService.getProductList(page,9);
 		return ResponseEntity.ok(productPage);
 	}
-//	@GetMapping("/cart")
-//	public ResponseEntity<Void> getCart() throws Exception{
-//		System.out.println("a");
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
+	@GetMapping("/cart")
+	public ResponseEntity<Void> getCart() throws Exception{
+		System.out.println("a");
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 	@PostMapping("/cart")
 	public ResponseEntity<Void> addCart(@RequestBody List<CartDto> cartDtos) throws Exception{
 		for (CartDto cartDto : cartDtos){

@@ -2,6 +2,7 @@ package com.clozet.model.entity;
 
 
 import com.clozet.model.dto.ImageDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -44,7 +45,7 @@ public class Product {
     @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
     private LocalDateTime createdDate;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL) @JsonIgnore
 //    @JoinColumn(name = "product", referencedColumnName = "prodNo")
     private List<Cart> carts;
 

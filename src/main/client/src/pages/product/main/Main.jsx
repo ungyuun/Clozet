@@ -8,7 +8,6 @@ import Card from "./Card";
 function Main() {
   
   const [ref,inView] = useInView();
-
   const { data, status, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery("products", ({ pageParam = 0 }) => getProduct(pageParam), {
       select: data => ({
@@ -38,6 +37,8 @@ function Main() {
       });
     }
   }, [inView, hasNextPage]);
+  useEffect(() => {
+  }, [inView]);
 
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>

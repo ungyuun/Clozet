@@ -14,14 +14,14 @@ function Product(){
       axios.get(`http://localhost:8081/product/view/${prodNo}`) 
               .then((response) => {
                 console.log("GET 요청 성공");
-                // console.log(response.data);
+                console.log(response.data);
                 setData(response.data);
                 
               })
               .catch((getError) => {
                 console.log(`GET 요청 에러: ${getError}`);
               });
-      },[prodNo]);
+      },[]);
     return(
         <>
           {data && <ProductHeader data={data} />}<hr />     {/* 상품의 썸네일, 가격, 주문정보를 입력하는 컴포넌트 */}

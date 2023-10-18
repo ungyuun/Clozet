@@ -27,9 +27,9 @@ public class User {
     private String nickname;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    //@JoinColumn(name = "email", referencedColumnName = "email") // email 필드를 참조
-    private List<Cart> cart;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    //@JoinColumn(name = "email", referencedColumnName = "email") // email 필드를 참조
+//    private List<Cart> cart;
 
 
 }

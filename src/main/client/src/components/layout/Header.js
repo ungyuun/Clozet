@@ -15,6 +15,13 @@ function Header() {
 
     const location = useLocation();
 
+    function jwtRemove(){
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("JWT");
+        localStorage.removeItem("nickname");
+        window.location.href = '/'
+    }
+
     const KakaoLogin = () =>{
         localStorage.setItem('currentPage', location.pathname);
         window.location.href = KAKAO_AUTH_URL
@@ -38,7 +45,9 @@ function Header() {
                             <li className="nav-item">
                                 <a className="nav-link active" aria-current="page" href="/productform">addProduct</a>
                             </li>
-                            
+                            <li>
+                                <button onClick={jwtRemove}>a</button>
+                            </li>
                         </ul>
                         {
                                 isLoggedIn ? (
