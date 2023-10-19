@@ -14,7 +14,7 @@ function Product(){
       axios.get(`http://localhost:8081/product/view/${prodNo}`) 
               .then((response) => {
                 console.log("GET 요청 성공");
-                // console.log(response.data);
+                console.log(response.data);
                 setData(response.data);
                 
               })

@@ -40,12 +40,12 @@ function Main() {
   }, [inView, hasNextPage]);
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+    <div  style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
       {data ? (
         data.pages.map((item) =>
           item.result.map((list, idx) =>
             
-              <Card  lastItemRef={idx === item.result.length - 1 ? ref : null} index={idx} data={list} />
+              <Card  className="card" lastItemRef={idx === item.result.length - 1 ? ref : null} index={idx} data={list} />
             )
           )
       ) : (

@@ -29,6 +29,5 @@ public interface ProductService {
 	public Page<Product> getProductList(int page,int size) throws  Exception;
 
 
-	public void addCartList(List<CartDto> cartDtos) throws  Exception;
 
 }

@@ -57,32 +57,22 @@ public class ProductController {
 
 	@GetMapping("/view/{prodNo}")
 	public ResponseEntity<Map<String, Object>> getProduct(@PathVariable Long prodNo) throws Exception {
-
+		System.out.println("시작");
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("product",productService.getProduct(prodNo));
 		map.put("productDetail",productService.getProductDetail(prodNo));
+		System.out.println("종료");
+		
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
 	@GetMapping("/main")
 	public ResponseEntity<Page<Product>> getProductList(@RequestParam("page") int page) throws Exception {
-
+ 		System.out.println("getProdList");
 		Page<Product> productPage = productService.getProductList(page,9);
+		System.out.println("getProdList end");
 		return ResponseEntity.ok(productPage);
-	}
-//	@GetMapping("/cart")
-//	public ResponseEntity<Void> getCart() throws Exception{
-//		System.out.println("a");
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
-	@PostMapping("/cart")
-	public ResponseEntity<Void> addCart(@RequestBody List<CartDto> cartDtos) throws Exception{
-		for (CartDto cartDto : cartDtos){
-			System.out.println(cartDto.toString());
-		}
-		productService.addCartList(cartDtos);
-		return new ResponseEntity<>(HttpStatus.OK);
 	}
 //	//@RequestMapping("/addProductView.do")
 //	@RequestMapping(value = "addProduct",method = RequestMethod.GET)

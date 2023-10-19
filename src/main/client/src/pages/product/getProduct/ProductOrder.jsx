@@ -86,7 +86,7 @@ function ProductOrder({data}){
 
     function addCart(){
 
-      axios.post("http://localhost:8081/product/cart",Object.values(options),{
+      axios.post("http://localhost:8081/cart/",Object.values(options),{
         headers: {"Content-Type": "application/json",},
       })
         .then(response => {

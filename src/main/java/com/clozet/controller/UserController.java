@@ -40,6 +40,7 @@ public class UserController {
 		// authorizedCode: 카카오 서버로부터 받은 인가 코드
 		System.out.println("code : "+code);
 		Map<String,Object> map = userService.kakaoLogin(code);
+		System.out.println((UserDto)map.get("UserDto"));
 		userService.register((UserDto)map.get("UserDto"));
 		return ResponseEntity.ok(map);
 	}

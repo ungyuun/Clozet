@@ -44,14 +44,12 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private final ProductDetailRepository productDetailRepository;
     @Autowired
-    private final CartRepository cartRepository;
-    @Autowired
     private final ImageRepository imageRepository;
 
 
     @Override
     public Product addProduct(ProductDto productDto) throws Exception {
-
+        System.out.println(productDto.toString());
         return productRepository.save(ProductMapper.INSTANCE.toEntity(productDto));
     }
 
@@ -73,14 +71,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDetailDto> getProductDetail(Long prodNo) throws Exception {
-
         List<ProductDetail> productDetail = productDetailRepository.findAllByProduct_ProdNo(prodNo);
         return ProductDetailMapper.INSTANCE.entitiesToDtos(productDetail);
+
     }
 
     @Override
     public ProductDto getProduct(Long prodNo) throws Exception {
-
         Product product = productRepository.findByProdNo(prodNo);
         return ProductMapper.INSTANCE.toDto(product);
     }
@@ -110,27 +107,5 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-    @Override
-    public void addCartList(List<CartDto> cartDtos) throws Exception {
-        List<Cart> cartList = new ArrayList<>();
-
-        for (CartDto cartDto : cartDtos){
-            Cart cart = CartMapper.INSTANCE.toEntity(cartDto);
-            Optional<Cart> existingCartItem = Optional.ofNullable(cartRepository.findByUserEmailAndProductProdNoAndSize(cart.getUser().getEmail(), cart.getProduct().getProdNo(),cart.getSize()));
-            if (existingCartItem.isPresent()) {
-                Cart cartItem = existingCartItem.get();
-                // 기존 레코드가 존재하면 amount를 업데이트
-                cartItem.setAmount(cartItem.getAmount() + cart.getAmount());
-                cartList.add(cartItem);
-
-            }
-            else {
-                cartList.add(cart);
-            }
-            System.out.println(cartList.toString());
-
-        }
-        cartRepository.saveAll(cartList);
-    }
 }
 
