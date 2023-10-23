@@ -68,11 +68,18 @@ public class ProductController {
 	}
 
 	@GetMapping("/main")
-	public ResponseEntity<Page<Product>> getProductList(@RequestParam("page") int page) throws Exception {
- 		System.out.println("getProdList");
-		Page<Product> productPage = productService.getProductList(page,9);
-		System.out.println("getProdList end");
-		return ResponseEntity.ok(productPage);
+	public ResponseEntity<?> getProductList(@RequestParam("page") int page) throws Exception {
+		try {
+			Page<Product> productPage = productService.getProductList(page, 9);
+			System.out.println(productPage);
+			System.out.println("Total Elements: " + productPage.getTotalElements());
+			System.out.println("Total Pages: " + productPage.getTotalPages());
+			System.out.println("Page Content: " + productPage.getContent());
+			return ResponseEntity.ok(productPage);
+		} catch (Exception e) {
+			// 예외 처리
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
+		}
 	}
 //	//@RequestMapping("/addProductView.do")
 //	@RequestMapping(value = "addProduct",method = RequestMethod.GET)

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from "react-router-dom";
-import LoginHandler from './login/LoginHandler';
-import LogoutHandler from './login/LogoutHandler';
+import LoginHandler from '../../services/LoginHandler';
+import LogoutHandler from '../../services/LogoutHandler';
 
 function UserRouter(){
     return(

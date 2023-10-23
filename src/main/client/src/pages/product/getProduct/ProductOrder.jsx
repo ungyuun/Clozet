@@ -4,13 +4,18 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Form, Row, Col,Button} from 'react-bootstrap';
 import axiosInstance from '../../common/AxiosInstance';
 import axios from 'axios';
+import CartModal from '../../cart/CartModal';
+import { useLocation } from 'react-router-dom';
 
 function ProductOrder({data}){
 
     const [options,setOptions] = useState({});
-    
+    const location = useLocation();
     const price = data.product.price;
     const [sum, setSum] = useState(0);
+    const [showCartModal, setShowCartModal] = useState(false);
+    const [cart,setCart] = useState();
+
     const handleOptionSelect = (idx, opt, price) => {
         // 동적 키를 가진 새 객체를 만듭니다
         const newOptions = { ...options };
@@ -18,7 +23,7 @@ function ProductOrder({data}){
     // 해당 idx에 대한 옵션 정보 업데이트 또는 추가
         newOptions[idx] = {
             prodNo: data.product.prodNo,
-            email:localStorage.getItem("email"),
+            email:sessionStorage.getItem("email"),
             size: opt,
             price: price,
             amount: 1 // 초기값으로 1을 설정
@@ -85,16 +90,19 @@ function ProductOrder({data}){
     }
 
     function addCart(){
-
-      axios.post("http://localhost:8081/cart/",Object.values(options),{
-        headers: {"Content-Type": "application/json",},
+      
+      axiosInstance.post(`${process.env.PUBLIC_URL}/cart/`, Object.values(options),{
+        params: {
+            pathname: location.pathname, // 이렇게 location 값을 요청에 전달
+          },
       })
-        .then(response => {
-            console.log(response)
+      .then((response) => {
+          console.log(response.data);  
+          setCart(response.data);   
+          setShowCartModal(true);      
         })
-        .catch(error => {
-            console.error(error);
-      })
+        .catch((error) => {
+        });
     }
     useEffect(()=>(
         updateSum()
@@ -164,8 +172,8 @@ function ProductOrder({data}){
                 <Button className="primary">구매</Button>
             </Col>
         </Row>
-
-            
+        {showCartModal && <CartModal setShowCartModal={setShowCartModal} />}
+       
         </>
     )
 }

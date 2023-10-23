@@ -44,7 +44,7 @@ public class Product {
     @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
     private LocalDateTime createdDate;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL) @JsonIgnore
 //    @JoinColumn(name = "product", referencedColumnName = "prodNo")
     private List<Cart> carts;
 

@@ -21,15 +21,24 @@ function Main() {
         return lastPage.nextPage === 0 ? undefined : nextPage;},
     });
 
-  async function getProduct(page) {
-    const res = await axios.get(`http://localhost:8081/product/main?page=${page}`);
-    const result = res.data;
-    console.log(result)
-    return {
-      result: result.content,
-      isLast: res.data.last
-    };
-  
+    async function getProduct(page) {
+      try {
+          const res = await axios.get(`http://localhost:8081/product/main?page=${page}`);
+          const result = res.data;
+          console.log(result);
+          return {
+              result: result.content,
+              isLast: res.data.last
+          };
+      } catch (error) {
+          console.error("Error:", error);
+          if (error.response) {
+              // 서버에서 반환한 응답이 있는 경우 응답 상태 코드와 데이터를 출력
+              console.error("Response Status:", error.response.status);
+              console.error("Response Data:", error.response.data);
+          }
+          // 에러 메시지를 사용자에게 표시하거나 다른 조치를 취할 수 있음
+      }
   }
   useEffect(() => {
     if (inView && hasNextPage) {

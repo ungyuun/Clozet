@@ -20,11 +20,12 @@ public class Cart {
     private String size;
     private Long amount;
 
-    @ManyToOne @JsonIgnore
-    @JoinColumn(name = "email")
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "kakao_email")
     private User user;
 
-    @ManyToOne @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name="prodNo")
     private Product product;
 }

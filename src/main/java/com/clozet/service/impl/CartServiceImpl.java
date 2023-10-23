@@ -29,13 +29,12 @@ public class CartServiceImpl implements CartService {
 
         for (CartDto cartDto : cartDtos){
             Cart cart = CartMapper.INSTANCE.toEntity(cartDto);
-            Optional<Cart> existingCartItem = Optional.ofNullable(cartRepository.findByUserEmailAndProductProdNoAndSize(cart.getUser().getEmail(), cart.getProduct().getProdNo(),cart.getSize()));
+            Optional<Cart> existingCartItem = Optional.ofNullable(cartRepository.findByUserKakaoEmailAndProductProdNoAndSize(cart.getUser().getKakaoEmail(), cart.getProduct().getProdNo(),cart.getSize()));
             if (existingCartItem.isPresent()) {
                 Cart cartItem = existingCartItem.get();
                 // 기존 레코드가 존재하면 amount를 업데이트
                 cartItem.setAmount(cartItem.getAmount() + cart.getAmount());
                 cartList.add(cartItem);
-
             }
             else {
                 cartList.add(cart);
@@ -44,5 +43,18 @@ public class CartServiceImpl implements CartService {
 
         }
         cartRepository.saveAll(cartList);
+    }
+
+    @Override
+    public List<CartDto> getCartList(String kakaoEmail) {
+        List<CartDto> cartDtoList = new ArrayList<>();
+        List<Cart> cartList = cartRepository.findAllByUserKakaoEmail(kakaoEmail);
+        for (Cart cart : cartList){
+            System.out.println(cart.toString());
+            CartDto cartDto = CartMapper.INSTANCE.toDto(cart);
+            cartDtoList.add(cartDto);
+            System.out.println(cartDto.toString());
+        }
+        return cartDtoList;
     }
 }

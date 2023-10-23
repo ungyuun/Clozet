@@ -19,4 +19,5 @@ public interface CartService {
 
     public void addCartList(List<CartDto> cartDtos) throws  Exception;
 
+    List<CartDto> getCartList(String kakaoEmail);
 }

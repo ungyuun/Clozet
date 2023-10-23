@@ -15,20 +15,15 @@ const LoginHandeler = (props) => {
         
       }).then((res) => { //백에서 완료후 우리사이트 전용 토큰 넘겨주는게 성공했다면
         console.log(res);
-        if (res.data.KakaoTokenDto.id_token) {
-            localStorage.setItem('access_token',res.data.KakaoTokenDto.access_token);
-            localStorage.setItem('JWT', res.data.KakaoTokenDto.id_token);
-            localStorage.setItem('nickname', res.data.UserDto.nickname);
-            localStorage.setItem('email', res.data.UserDto.email);
-            
-          }
-        console.log(res.data.KakaoTokenDto.id_token)
+        sessionStorage.setItem('email',res.data.kakao_account.email);
+        sessionStorage.setItem('JWT', res.headers.authorization);
+        sessionStorage.setItem('nickname', res.data.properties.nickname);
+        sessionStorage.setItem('profile', res.data.properties.thumbnail_image);
 
         navigate(localStorage.getItem("currentPage"));
         localStorage.removeItem("currentPage");
       });
     };
-    localStorage.setItem("token",code);
     kakaoLogin();
     console.log(`code : ${code}`);
   }, [code]);

@@ -1,6 +1,6 @@
-import LogoutHandler from "../../pages/user/login/LogoutHandler";
+import LogoutHandler from '../../services/LogoutHandler';
 import "../../styles/header.css"; 
-
+import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 
 
@@ -10,14 +10,19 @@ function Header() {
     const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URL;
     
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&prompt=login`;
-    const isLoggedIn = localStorage.getItem('JWT');
-    const nickname = localStorage.getItem('nickname');
+    const isLoggedIn = sessionStorage.getItem('JWT');
+    const nickname = sessionStorage.getItem('nickname');
+    const profile = sessionStorage.getItem('profile');
 
     const location = useLocation();
+    const navigate = useNavigate();
 
     const KakaoLogin = () =>{
         localStorage.setItem('currentPage', location.pathname);
         window.location.href = KAKAO_AUTH_URL
+    }
+    const Logout = () =>{
+        LogoutHandler(navigate);
     }
     return (
         <>
@@ -38,13 +43,13 @@ function Header() {
                             <li className="nav-item">
                                 <a className="nav-link active" aria-current="page" href="/productform">addProduct</a>
                             </li>
-                            
                         </ul>
                         {
                                 isLoggedIn ? (
                                     <>
                                         <button>{nickname}</button>
-                                        <button onClick={LogoutHandler }>로그아웃</button>
+                                        <img src={profile} />
+                                        <button onClick={Logout}>로그아웃</button>
                                         
                                     </>
                                     

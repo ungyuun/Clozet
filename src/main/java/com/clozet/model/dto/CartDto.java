@@ -13,6 +13,8 @@ import lombok.Setter;
 public class CartDto {
 
     private Long prodNo;
+    private String title;
+    private String thumbnail;
     private String email;
     private String size;
     private Long price;
@@ -22,6 +24,8 @@ public class CartDto {
     public String toString() {
         return "CartDto{" +
                 "prodNo=" + prodNo +
+                ", title='" + title + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
                 ", email='" + email + '\'' +
                 ", size='" + size + '\'' +
                 ", price=" + price +

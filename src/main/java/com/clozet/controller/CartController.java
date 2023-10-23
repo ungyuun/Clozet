@@ -40,17 +40,19 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("/")
-//    public ResponseEntity<List<CartDto>> getCart(HttpServletRequest request){
-//
-//        return
-//
-//    }
-    public void getCart(){
-        System.out.println("hi");
+    public ResponseEntity<List<CartDto>> getCart(HttpServletRequest request){
+        String kakaoEmail = (String) request.getAttribute("kakaoEmail");
+        System.out.println("kakaoEmail : "+kakaoEmail);
+        List<CartDto> cartDtoList = cartService.getCartList(kakaoEmail);
+
+
+        return ResponseEntity.ok(cartDtoList);
+
     }
 
     @PostMapping("/")
     public ResponseEntity<Void> addCart(@RequestBody List<CartDto> cartDtos) throws Exception{
+        System.out.println("hi");
         for (CartDto cartDto : cartDtos){
             System.out.println(cartDto.toString());
         }

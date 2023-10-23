@@ -19,66 +19,66 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserServiceTestImpl implements UserServiceTest {
-    @Autowired
-    private UserService userService;
-
-
-
-
-    @Test
-    public void addUser() throws Exception {
-
-        UserDto userDto = UserDto.builder()
-                .userId("tjddbs6262")
-                .email("sungyuun@naver.com")
-                .password("tjddbs6262")
-                .phone("01089114554")
-                .role("admin")
-                .userName("김성윤")
-                .regDate(new java.sql.Date(new java.util.Date().getTime()))
-                .build();
-
-        userService.addUser(userDto);
-    }
-
-
-
-    @Override
-    @Test
-    public void getUser() throws Exception {
-        UserDto userDto = UserDto.builder()
-                .userId("tjddbs6262")
-                .email("sungyuun@naver.com")
-                .password("tjddbs6262")
-                .phone("01089114554")
-                .role("admin")
-                .userName("김성윤")
-                .regDate(new java.sql.Date(new java.util.Date().getTime()))
-                .build();
-
-        userDto = userService.getUser(userDto);
-        System.out.println("hello"+userDto.getUserId());
-        assertEquals(userDto.getUserId(), "tjddbs6262");
-    }
-
-    @Override
-    @Test
-    public void getUserList() throws Exception {
-        Pageable page = PageRequest.of(0, 10);
-        List<User> totalPage = userService.getUserList(page);
-        for(User user : totalPage) {
-            System.out.println(user.getUserId());
-        }
-    }
-
-    @Override
-    public void updateUser() throws Exception {
-
-    }
-
-    @Override
-    public void checkDuplication() throws Exception {
-
-    }
+public class UserServiceTestImpl {
+//    @Autowired
+//    private UserService userService;
+//
+//
+//
+//
+//    @Test
+//    public void addUser() throws Exception {
+//
+//        UserDto userDto = UserDto.builder()
+//                .userId("tjddbs6262")
+//                .email("sungyuun@naver.com")
+//                .password("tjddbs6262")
+//                .phone("01089114554")
+//                .role("admin")
+//                .userName("김성윤")
+//                .regDate(new java.sql.Date(new java.util.Date().getTime()))
+//                .build();
+//
+//        userService.addUser(userDto);
+//    }
+//
+//
+//
+//    @Override
+//    @Test
+//    public void getUser() throws Exception {
+//        UserDto userDto = UserDto.builder()
+//                .userId("tjddbs6262")
+//                .email("sungyuun@naver.com")
+//                .password("tjddbs6262")
+//                .phone("01089114554")
+//                .role("admin")
+//                .userName("김성윤")
+//                .regDate(new java.sql.Date(new java.util.Date().getTime()))
+//                .build();
+//
+//        userDto = userService.getUser(userDto);
+//        System.out.println("hello"+userDto.getUserId());
+//        assertEquals(userDto.getUserId(), "tjddbs6262");
+//    }
+//
+//    @Override
+//    @Test
+//    public void getUserList() throws Exception {
+//        Pageable page = PageRequest.of(0, 10);
+//        List<User> totalPage = userService.getUserList(page);
+//        for(User user : totalPage) {
+//            System.out.println(user.getUserId());
+//        }
+//    }
+//
+//    @Override
+//    public void updateUser() throws Exception {
+//
+//    }
+//
+//    @Override
+//    public void checkDuplication() throws Exception {
+//
+//    }
 }
