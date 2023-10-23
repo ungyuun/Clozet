@@ -1,28 +1,50 @@
 package com.clozet.config;
 
-import org.springframework.context.annotation.Bean;
+//import com.clozet.config.jwt.CustomUserDetailsService;
+//import com.clozet.config.jwt.JwtAuthenticateFilter;
+import com.clozet.model.common.Cors;
+import com.clozet.security.*;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.stereotype.Component;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final CorsFilter corsFilter;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        System.out.println("configure method start");
-        http
+        http.httpBasic().disable()
                 .csrf().disable()
-                .authorizeRequests()
-                .anyRequest().permitAll()
-//                .antMatchers("/user/**").permitAll()
-//                .antMatchers("/product/**").permitAll()
-//                .anyRequest().authenticated()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .formLogin().disable();
+                .addFilter(corsFilter)
+                .authorizeRequests()
+                .antMatchers("/cart/**").authenticated()
+                .anyRequest().permitAll();
+
+//                .and()
+//                //(1)
+//                .exceptionHandling()
+//                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+//                .and()
+//                //(1)
+//                .exceptionHandling()
+//                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+        http
+                //여기 위에 부분 추가했음!!
+                .oauth2Login().loginPage("/auth/login");
+
+        http.addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

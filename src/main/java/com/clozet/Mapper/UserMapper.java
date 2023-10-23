@@ -12,9 +12,6 @@ import org.mapstruct.factory.Mappers;
 public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-//    @Mapping(source="prodNo",target="prodNo")
-//    ProductDto toDtoProdNo(Product product);
-
     UserDto toDto(User user);
 
     User toEntity(UserDto userDto);

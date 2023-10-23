@@ -4,7 +4,6 @@ import com.clozet.Mapper.UserMapper;
 import com.clozet.model.dto.UserDto;
 import com.clozet.model.entity.User;
 import com.clozet.repository.UserRepository;
-import com.clozet.security.kakao.KakaoOAuth2;
 import com.clozet.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,23 +28,39 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService{
 
 	private final UserRepository userRepository;
-	private final KakaoOAuth2 kakaoOAuth2;
 
+
+//	@Override
+//	public Map<String,Object> kakaoLogin(String authorizedCode) throws Exception {
+//		return kakaoOAuth2.kakaoLogin(authorizedCode);
+//	}
 
 	@Override
-	public Map<String,Object> kakaoLogin(String authorizedCode) throws Exception {
-		return kakaoOAuth2.kakaoLogin(authorizedCode);
+	public void register(UserDto userDto) throws Exception {
+
 	}
 
-	public void register(UserDto userDto) throws Exception{
-		String email = userDto.getEmail();
-		User existOwner = (User) userRepository.findByEmail(email).orElse(null);
-		// 처음 로그인이 아닌 경우
-		if (existOwner == null) {
-			User user = UserMapper.INSTANCE.toEntity(userDto);
-			userRepository.save(user);
-		}
+	public User getUser(HttpServletRequest request) { //(1)
+		//(2)
+		String kakaoEmail = (String) request.getAttribute("kakaoEmail");
+
+		//(3)
+		User user = userRepository.findByKakaoEmail(kakaoEmail);
+
+		//(4)
+		return user;
 	}
+
+
+//	public void register(UserDto userDto) throws Exception{
+//		String email = userDto.getEmail();
+//		User existOwner = (User) userRepository.findByEmail(email).orElse(null);
+//		// 처음 로그인이 아닌 경우
+//		if (existOwner == null) {
+//			User user = UserMapper.INSTANCE.toEntity(userDto);
+//			userRepository.save(user);
+//		}
+//	}
 //	public UserDto getUser(UserDto userDto) throws Exception {
 //		User user = UserMapper.INSTANCE.dtoToEntity(userDto);
 //		return UserMapper.INSTANCE.entityToDto(userRepository.findByUserId(userDto.getUserId()));

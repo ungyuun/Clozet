@@ -24,7 +24,7 @@ function Product(){
       },[prodNo]);
     return(
         <>
-          {data && <ProductHeader data={data} />}     {/* 상품의 썸네일, 가격, 주문정보를 입력하는 컴포넌트 */}
+          {data && <ProductHeader data={data} />}<hr />     {/* 상품의 썸네일, 가격, 주문정보를 입력하는 컴포넌트 */}
           {data && <Content data={data} />}           {/* 상품의 정보가 담겨있는 메인 컴포넌트 */}
           {/* {/* {data && <Comment data={data} />}          댓글 컴포넌트 */}
         </>

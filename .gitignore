@@ -27,6 +27,7 @@ out/
 S3Config
 kakao.properties
 application-oauth.yml
+application-database.yml
 !**/src/main/**/out/
 !**/src/test/**/out/
 

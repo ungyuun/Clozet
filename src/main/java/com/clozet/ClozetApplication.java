@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @EnableAspectJAutoProxy
 @SpringBootApplication()
-//aduting
+@ComponentScan("com.clozet.*")
 //@EnableJpaAuditing    공통 어노테이션 등록
 public class ClozetApplication{
 

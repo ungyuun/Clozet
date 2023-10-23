@@ -8,9 +8,11 @@ import java.util.Map;
 
 import com.clozet.Mapper.ProductMapper;
 import com.clozet.cloud.FileUpload;
+import com.clozet.model.dto.CartDto;
 import com.clozet.model.dto.ImageDto;
 import com.clozet.model.dto.PageInfo;
 import com.clozet.model.dto.ProductDto;
+import com.clozet.model.entity.Cart;
 import com.clozet.model.entity.Product;
 import com.clozet.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,26 +57,30 @@ public class ProductController {
 
 	@GetMapping("/view/{prodNo}")
 	public ResponseEntity<Map<String, Object>> getProduct(@PathVariable Long prodNo) throws Exception {
-
+		System.out.println("시작");
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("product",productService.getProduct(prodNo));
 		map.put("productDetail",productService.getProductDetail(prodNo));
+		System.out.println("종료");
+		
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
 	@GetMapping("/main")
-	public ResponseEntity<Page<Product>> getProductList(@RequestParam("page") int page) throws Exception {
-		System.out.println(page);
-//		List<ProductDTO.DetailResponseDTO> productDetailResponseDtoList = productService.getProductList(cursor, PageRequest.of(0,10));
-		Page<Product> productPage = productService.getProductList(page,9);
-//		PageInfo pageInfo = new PageInfo(page,size,productPage.getTotalPages(),(int)productPage.getTotalElements());
-
-//		List<Product> product = productPage.getContent();
-//		List<ProductDto> productDto = ProductMapper.INSTANCE.toDtoList(product);
-		return ResponseEntity.ok(productPage);
+	public ResponseEntity<?> getProductList(@RequestParam("page") int page) throws Exception {
+		try {
+			Page<Product> productPage = productService.getProductList(page, 9);
+			System.out.println(productPage);
+			System.out.println("Total Elements: " + productPage.getTotalElements());
+			System.out.println("Total Pages: " + productPage.getTotalPages());
+			System.out.println("Page Content: " + productPage.getContent());
+			return ResponseEntity.ok(productPage);
+		} catch (Exception e) {
+			// 예외 처리
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
+		}
 	}
-
 //	//@RequestMapping("/addProductView.do")
 //	@RequestMapping(value = "addProduct",method = RequestMethod.GET)
 //	public String addProductView() throws Exception{

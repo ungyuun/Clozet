@@ -4,13 +4,14 @@ import com.clozet.Mapper.ImageMapper;
 
 import com.clozet.Mapper.ProductDetailMapper;
 import com.clozet.Mapper.ProductMapper;
-import com.clozet.model.dto.ImageDto;
+import com.clozet.Mapper.CartMapper;
+import com.clozet.model.dto.*;
 
-import com.clozet.model.dto.ProductDetailDto;
-import com.clozet.model.dto.ProductDto;
+import com.clozet.model.entity.Cart;
 import com.clozet.model.entity.Image;
 import com.clozet.model.entity.Product;
 import com.clozet.model.entity.ProductDetail;
+import com.clozet.repository.CartRepository;
 import com.clozet.repository.ImageRepository;
 
 import com.clozet.repository.ProductDetailRepository;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product addProduct(ProductDto productDto) throws Exception {
-
+        System.out.println(productDto.toString());
         return productRepository.save(ProductMapper.INSTANCE.toEntity(productDto));
     }
 
@@ -69,24 +71,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDetailDto> getProductDetail(Long prodNo) throws Exception {
-//        log.info("a"+ProductMapper.INSTANCE.toEntity(productDto).toString());
-//        List<ProductDetail> productDetail = productDetailRepository.findAllByProduct(ProductMapper.INSTANCE.toEntity(productDto));
         List<ProductDetail> productDetail = productDetailRepository.findAllByProduct_ProdNo(prodNo);
-
-
-
         return ProductDetailMapper.INSTANCE.entitiesToDtos(productDetail);
-//        return productDetail.stream()
-//                .map(ProductDetailMapper.INSTANCE::toDto)
-//                .collect(Collectors.toList());
 
     }
 
     @Override
     public ProductDto getProduct(Long prodNo) throws Exception {
-
         Product product = productRepository.findByProdNo(prodNo);
-        //어짜피 product ㅏㅇ네 options가 있으니깐
         return ProductMapper.INSTANCE.toDto(product);
     }
 
@@ -113,6 +105,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll(pageable);
 
     }
+
 
 }
 

@@ -1,18 +1,14 @@
 package com.clozet.controller;
 
-import com.clozet.Mapper.ProductMapper;
-import com.clozet.auth.PrincipalDetails;
 import com.clozet.model.dto.KakaoTokenDto;
-import com.clozet.model.dto.ProductDto;
 import com.clozet.model.dto.UserDto;
-import com.clozet.model.entity.Role;
-import com.clozet.model.entity.User;
 import com.clozet.repository.UserRepository;
+import com.clozet.security.JwtProperties;
 import com.clozet.service.UserService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import com.clozet.service.impl.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,42 +26,17 @@ public class UserController {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	@Autowired
 	private UserService userService;
-
-	@GetMapping("/loginForm")
-	public String loginForm(){
-		return "login";
-	}
-	@GetMapping("/kakao/callback")
-	public ResponseEntity<Map<String,Object>> kakaoLogin(@RequestParam("code")String code) throws Exception {
-		// authorizedCode: 카카오 서버로부터 받은 인가 코드
-		System.out.println("code : "+code);
-		Map<String,Object> map = userService.kakaoLogin(code);
-		return ResponseEntity.ok(map);
-	}
-
-	@GetMapping("/joinForm")
-	public String joinForm(){
-		return "join";
-	}
-
-	@GetMapping("/user")
-	@ResponseBody
-	public String user(){
-		return "user";
-	}
-
-	@GetMapping("/manager")
-	@ResponseBody
-	public String manager(){
-		return "manager";
-	}
-
-	@GetMapping("/admin")
-	@ResponseBody
-	public String admin(){
-		return "admin";
-	}
-
+	@Autowired
+	private AuthService authService;
+//	@GetMapping("/kakao/callback")
+//	public ResponseEntity<Map<String,Object>> kakaoLogin(@RequestParam("code")String code) throws Exception {
+//		// authorizedCode: 카카오 서버로부터 받은 인가 코드
+//		System.out.println("code : "+code);
+//		Map<String,Object> map = userService.kakaoLogin(code);
+//		System.out.println((UserDto)map.get("UserDto"));
+//		userService.register((UserDto)map.get("UserDto"));
+//		return ResponseEntity.ok(map);
+//	}
 
 //	@Value("#{commonProperties['pageUnit']}")
 //	int pageUnit;
