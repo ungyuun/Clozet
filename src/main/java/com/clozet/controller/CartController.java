@@ -59,4 +59,10 @@ public class CartController {
         cartService.addCartList(cartDtos);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @DeleteMapping("/{cartId}")
+    public ResponseEntity<Void> deleteCart(@PathVariable Long cartId) throws Exception{
+        System.out.println(cartId);
+        cartService.deleteCart(cartId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

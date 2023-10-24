@@ -57,4 +57,9 @@ public class CartServiceImpl implements CartService {
         }
         return cartDtoList;
     }
+
+    @Override
+    public void deleteCart(Long cartId) {
+        cartRepository.deleteById(cartId);
+    }
 }

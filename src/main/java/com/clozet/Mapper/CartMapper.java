@@ -18,6 +18,7 @@ public interface CartMapper {
 
     default CartDto toDto(Cart cart){
         CartDto cartDto = new CartDto();
+        cartDto.setId(cart.getId());
         cartDto.setAmount(cart.getAmount());
         cartDto.setSize(cart.getSize());
         cartDto.setPrice(cart.getProduct().getPrice());

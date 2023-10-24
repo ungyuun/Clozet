@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CartDto {
 
+    private Long id;
     private Long prodNo;
     private String title;
     private String thumbnail;
@@ -23,7 +24,8 @@ public class CartDto {
     @Override
     public String toString() {
         return "CartDto{" +
-                "prodNo=" + prodNo +
+                "id=" + id +
+                ", prodNo=" + prodNo +
                 ", title='" + title + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", email='" + email + '\'' +

@@ -1,8 +1,6 @@
 import LogoutHandler from '../../services/LogoutHandler';
 import "../../styles/header.css"; 
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from "react-router-dom";
-
+import { useNavigate,useLocation,Link } from 'react-router-dom';
 
 function Header() {
 
@@ -35,13 +33,16 @@ function Header() {
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/">Home</a>
+                                <Link className="nav-link active" to="/">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/product/main">product</a>
+                                <Link className="nav-link active" to="/product/main">product</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/productform">addProduct</a>
+                                <Link className="nav-link active" to="/productform">addProduct</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link active" to="/cart">cart</Link>
                             </li>
                         </ul>
                         {

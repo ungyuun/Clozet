@@ -34,14 +34,10 @@ function ProductHeader({data}){
                         ))}                    
                     </div>
                 </Col>
-<<<<<<< HEAD
-                <Col md={7}>2 of 2</Col>
-=======
                 <Col md={6}>
                     <ProductOrder data={data}/>
                     
                 </Col>
->>>>>>> develop
             </Row>
       </Container>
         
