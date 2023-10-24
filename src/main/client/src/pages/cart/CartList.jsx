@@ -10,9 +10,11 @@ function CartList(){
     const [checkItems, setCheckItems] = useState(new Set())
     const [isAllChecked, setIsAllChecked] = useState(false);
     const [totalPrice,setTotalPrice] = useState(0);
+    const [token,setToken] = useState(false);
     useEffect(()=>{
       const fetchData = async () => {
         try {
+          console.log("a");
           const {data} = await axiosInstance.get(`${process.env.PUBLIC_URL}/cart/`, {
             params: {
               pathname: location.pathname,
@@ -24,13 +26,34 @@ function CartList(){
         }
       };
       fetchData()
-        .then((data) => setCartList(data))
+        .then((data) => {setCartList(data); setToken(false)})
         .catch((error) => {
         });
-    }, [cartList]);
+    }, [token]);
+
+    function formatMoney(amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
 
     const addReciept = () =>{
-      console.log(checkItems);
+      const setToArray = Array.from(checkItems);
+      const carts = setToArray.map(item => item.cart); // set을 배열로 변경해 cart 삽입
+      if(checkItems.size === 0)
+        alert("선택한 상품이 없습니다")
+      else{
+        // axiosInstance.post(`${process.env.PUBLIC_URL}/cart/`,carts,{
+        //   params: {
+        //       pathname: location.pathname, // 이렇게 location 값을 요청에 전달
+        //     },
+        // })
+        // .then((response) => {
+        //     console.log(response.data);  
+        //     setCart(response.data);   
+        //     setShowCartModal(true);      
+        //   })
+        //   .catch((error) => {
+        //   });
+      }
     }
 
     const checkItemHandler = (id,cart,isChecked) => {
@@ -82,7 +105,9 @@ function CartList(){
         <Container className="cart"><br /><br />
             
             <Row>        
-              
+                <Col md={3}>
+
+                </Col>
                 <Col md={6}>                      
                   <Row>
                     <h4>장바구니</h4>
@@ -98,7 +123,7 @@ function CartList(){
                         {
                           cartList.map((cart,idx)=>{
                               if (cart){
-                                return <CartSpan key={idx} id={idx} cart={cart} isAllChecked={isAllChecked} checkItemHandler={checkItemHandler}/>
+                                return <CartSpan key={idx} id={idx} cart={cart} setToken={setToken} isAllChecked={isAllChecked} checkItemHandler={checkItemHandler}/>
                               }
                               return null;
                             })
@@ -109,7 +134,7 @@ function CartList(){
                       <Button onClick={addReciept}>총 {checkItems.size}개 | {totalPrice} 결제</Button>
                     </Row>
                 </Col>
-                <Col md={6}>
+                <Col md={3}>
 
                 </Col>
             </Row>

@@ -5,7 +5,7 @@ import '../../styles/cart.css'
 import axiosInstance from '../common/AxiosInstance';
 import {NavLink} from "react-router-dom";
 
-function CartSpan({cart,id,checkItemHandler,isAllChecked}){
+function CartSpan({cart,id,setToken,checkItemHandler,isAllChecked}){
     const location = useLocation();
     const [checked, setChecked] = useState(false); // 체크 여부 판단
     const [itemPrice,setItemPrice] = useState(cart.price*cart.amount)
@@ -23,7 +23,9 @@ function CartSpan({cart,id,checkItemHandler,isAllChecked}){
                 pathname: location.pathname,
               },
         }).then((response) => {
-            console.log("done");   
+            console.log("done"); 
+
+            setToken(true);  
         })
         .catch((error) => {
         });
