@@ -23,7 +23,7 @@ function Main() {
 
     async function getProduct(page) {
       try {
-          const res = await axios.get(`http://localhost:8081/product/main?page=${page}`);
+          const res = await axios.get(`${process.env.PUBLIC_URL}/product/main?page=${page}`);
           const result = res.data;
           console.log(result);
           return {
@@ -49,20 +49,22 @@ function Main() {
   }, [inView, hasNextPage]);
 
   return (
-    <div  style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
-      {data ? (
-        data.pages.map((item) =>
-          item.result.map((list, idx) =>
-            
-              <Card  className="card" lastItemRef={idx === item.result.length - 1 ? ref : null} index={idx} data={list} />
+    <><br/><br/>
+      <h4>제품</h4><hr/>
+      <div  style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+        {data ? (
+          data.pages.map((item) =>
+            item.result.map((list, idx) =>
+              
+                <Card  className="card" lastItemRef={idx === item.result.length - 1 ? ref : null} index={idx} data={list} />
+              )
             )
-          )
-      ) : (
-        <div>Loading...</div>
-      )}
-    
-    </div>
-
+        ) : (
+          <div>Loading...</div>
+        )}
+      
+      </div>
+    </>
   );
     
 }

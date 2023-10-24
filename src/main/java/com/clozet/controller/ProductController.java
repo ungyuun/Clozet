@@ -55,7 +55,7 @@ public class ProductController {
 	}
 
 
-	@GetMapping("/view/{prodNo}")
+	@GetMapping("/{prodNo}")
 	public ResponseEntity<Map<String, Object>> getProduct(@PathVariable Long prodNo) throws Exception {
 		System.out.println("시작");
 		Map<String, Object> map = new HashMap<>();

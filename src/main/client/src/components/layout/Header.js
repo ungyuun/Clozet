@@ -39,7 +39,7 @@ function Header() {
                                 <Link className="nav-link active" to="/product/main">product</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" to="/productform">addProduct</Link>
+                                <Link className="nav-link active" to="/product/form">addProduct</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active" to="/cart">cart</Link>

@@ -6,7 +6,7 @@ import axios from 'axios';
 function Card({ data, lastItemRef,index}){
     const navigate = useNavigate();
     const handleCardClick = () => {
-        navigate(`/product/view/${data.prodNo}`);
+        navigate(`/product/${data.prodNo}`);
       };
     return (
 

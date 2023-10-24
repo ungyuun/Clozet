@@ -108,73 +108,73 @@ function ProductOrder({data}){
         updateSum()
     ),[options])
     return(
-        <><hr />
-        <Dropdown className="d-inline mx-2">
-            <Dropdown.Toggle id="dropdown-autoclose-true">
-            옵션 선택
-            </Dropdown.Toggle><hr />
+        <div className="orderBox"><hr />
+          <Dropdown className="d-inline mx-2">
+              <Dropdown.Toggle id="dropdown-autoclose-true">
+              옵션 선택
+              </Dropdown.Toggle><hr />
 
-            <Dropdown.Menu>
-                {data.productDetail.map((datas, idx) => (
-                    <Dropdown.Item key={idx} href="#" onClick={() => handleOptionSelect(idx,datas.size,price)}>
-                        {datas.size}
-                    </Dropdown.Item>
-                ))}
-            </Dropdown.Menu>
-        </Dropdown>
-        <ul className="optList">
-          {Object.entries(options).map(([key, option]) => (
-            <li key={key}>
-              <Row>
-                <Col md={5}>
-                  <span className="opt">{option.size}</span>
+              <Dropdown.Menu>
+                  {data.productDetail.map((datas, idx) => (
+                      <Dropdown.Item key={idx} href="#" onClick={() => handleOptionSelect(idx,datas.size,price)}>
+                          {datas.size}
+                      </Dropdown.Item>
+                  ))}
+              </Dropdown.Menu>
+          </Dropdown>
+          <ul className="optList">
+            {Object.entries(options).map(([key, option]) => (
+              <li key={key}>
+                <Row>
+                  <Col md={5}>
+                    <span className="opt">{option.size}</span>
+                  </Col>
+                  <Col md={3}>
+                    <span className="amount">
+                      <button variant="danger" onClick={() => handleDecrease(key)}>
+                        &nbsp;-&nbsp;
+                      </button>
+                      <input
+                        type="number"
+                        value={option.amount}
+                        onChange={(e) => handleAmountChange(key, parseInt(e.target.value))}
+                        inputMode="none"
+                      />
+                      <button onClick={() => handleIncrease(key)}>&nbsp;+&nbsp;</button>
+                    </span>
+                  </Col>
+                  <Col md={3}>
+                    <span className="price">{formatMoney(option.price)}원</span>
+                  </Col>
+                  <Col md={1}>
+                    <span>
+                      <button onClick={() => handleRemove(key)}>-</button>
+                    </span>
+                  </Col>
+                </Row>
+                <input type="hidden" name="buy_list_option_info" value={option.size} />
+              </li>
+            ))}
+          </ul>
+          <div className="orderOption">
+            <Row id="totalPrice">
+              
+              <Col md={4}><h5>&nbsp;&nbsp;&nbsp;총 상품금액</h5></Col>
+              <Col md={4}></Col>
+              <Col md={3}><h5>{formatMoney(sum)}원</h5></Col>
+            </Row>
+            <hr />
+            <Row className="bottom_bt">
+                <Col md={6}>
+                    <Button className="primary" onClick={addCart}>장바구니</Button>
                 </Col>
-                <Col md={3}>
-                  <span className="amount">
-                    <button variant="danger" onClick={() => handleDecrease(key)}>
-                      &nbsp;-&nbsp;
-                    </button>
-                    <input
-                      type="number"
-                      value={option.amount}
-                      onChange={(e) => handleAmountChange(key, parseInt(e.target.value))}
-                      inputMode="none"
-                    />
-                    <button onClick={() => handleIncrease(key)}>&nbsp;+&nbsp;</button>
-                  </span>
+                <Col md={6}>
+                    <Button className="primary">구매</Button>
                 </Col>
-                <Col md={3}>
-                  <span className="price">{formatMoney(option.price)}원</span>
-                </Col>
-                <Col md={1}>
-                  <span>
-                    <button onClick={() => handleRemove(key)}>-</button>
-                  </span>
-                </Col>
-              </Row>
-              <input type="hidden" name="buy_list_option_info" value={option.size} />
-            </li>
-          ))}
-        </ul>
-        
-        <Row id="totalPrice">
-          
-          <Col md={4}><h5>&nbsp;&nbsp;&nbsp;총 상품금액</h5></Col>
-          <Col md={4}></Col>
-          <Col md={3}><h5>{formatMoney(sum)}원</h5></Col>
-        </Row>
-        <hr />
-        <Row className="bottom_bt">
-            <Col md={6}>
-                <Button className="primary" onClick={addCart}>장바구니</Button>
-            </Col>
-            <Col md={6}>
-                <Button className="primary">구매</Button>
-            </Col>
-        </Row>
-        {showCartModal && <CartModal setShowCartModal={setShowCartModal} />}
-       
-        </>
+            </Row>
+            {showCartModal && <CartModal setShowCartModal={setShowCartModal} />}
+          </div>
+        </div>
     )
 }
 

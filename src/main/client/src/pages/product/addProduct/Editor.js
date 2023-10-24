@@ -7,7 +7,6 @@ import "../../../styles/product.css";
 function Editor({ editorData, onChange,setDesc,desc}){
 
   const [flag,setFlag] = useState(false);
-  const imgLink = "http://localhost:3000/images/"
 
   function customUploadAdapter(loader){
     return{
@@ -19,17 +18,12 @@ function Editor({ editorData, onChange,setDesc,desc}){
             data.append("file",file);
             console.log(data)
             console.log(file)
-            axios.post('http://localhost:8081/product/img',data)
+            axios.post(`${process.env.PUBLIC_URL}/product/img`,data)
               .then((res)=>{
-                console.log(`레스 ${res}`);
-                console.log(res.data);
-                
-                // setContext(res.data);
                 onChange(res.data);
-                console.log(` post 들어옴 ${res.data}`);
                 
                 resolve({
-                  // default: `${imgLink}/${res.data}`
+                  
                   default : res.data
                 });
               })

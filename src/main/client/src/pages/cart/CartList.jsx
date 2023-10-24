@@ -32,7 +32,7 @@ function CartList(){
     const addReciept = () =>{
       console.log(checkItems);
     }
-    
+
     const checkItemHandler = (id,cart,isChecked) => {
       if (isChecked) {
         // checkItems.add(id);
@@ -79,7 +79,7 @@ function CartList(){
     }
     
     return(
-        <Container className="cart">
+        <Container className="cart"><br /><br />
             
             <Row>        
               

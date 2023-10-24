@@ -39,8 +39,8 @@ function CartSpan({cart,id,checkItemHandler,isAllChecked}){
                         <input id={id} className="check_btn" type="checkbox" checked={checked} onChange={(e) => checkHandled(e)} />
                         <label for="check_btn"></label>
                     </Col>
-                    <Col className="thumbnail" md={5}>
-                        <NavLink to={`/product/view/${cart.prodNo}`}>
+                    <Col className="cartthumbnail" md={5}>
+                        <NavLink to={`/product/${cart.prodNo}`}>
                             <img src={cart.thumbnail} />
                         </NavLink>
                     </Col>  

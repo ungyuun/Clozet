@@ -11,6 +11,7 @@ import Thumbnail from './Thumbnail';
 import AdditionalImage from './AdditionalImage';
 
 
+
 function ProductForm(){
 
     const { register,handleSubmit } = useForm();
@@ -35,12 +36,13 @@ function ProductForm(){
             price : price
           };
           console.log(JSON.stringify(formData));
-          axios.post("http://localhost:8081/product/newproduct",formData,{
+          axios.post(`${process.env.PUBLIC_URL}/product/newproduct`,formData,{
             headers: {"Content-Type": "application/json",},
           })
           .then((response) => {
             const prodNo = response.data.prodNo; 
-            navigate(`/product/view/${prodNo}`);
+            
+            navigate(`/product/${prodNo}`);
           })
           .catch((error) => {
             console.log(`error : ${error}`);
@@ -51,7 +53,9 @@ function ProductForm(){
     };
     
     return(
+        
         <Form className="mb-5" onSubmit={handleSubmit(onSubmit)}><br /><br />
+        <h4>상품추가</h4><hr/>
             <Title className="mt-5" register={register}/>
             <Editor editorData={editorData} onChange={handleEditorChange} /><hr />
             <Container>
