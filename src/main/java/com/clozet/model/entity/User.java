@@ -14,7 +14,7 @@ import java.util.List;
 //https://sudo-minz.tistory.com/78
 //https://growth-coder.tistory.com/188
 @Entity
-@Getter @ToString
+@Getter @Setter @ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,7 +42,7 @@ public class User {
 
     private String receive;
     private String cellPhone;
-    private Long postCode;
+    private String postCode;
     private String address;
     private String addressDetail;
 

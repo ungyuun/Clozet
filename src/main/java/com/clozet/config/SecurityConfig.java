@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll();
 
         http
-                .oauth2Login().loginPage("/auth/login");
+                .oauth2Login().loginPage("http://192.168.0.16:8081/auth/login");
 
         http.addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
     }

@@ -122,7 +122,7 @@ function CartList(){
                         }
                     </Row>
                     <Row>
-                      <Button onClick={addReciept}>총 {checkItems.size}개 | {totalPrice} 결제</Button>
+                      <Button onClick={addReciept}>총 {checkItems.size}개 | {formatMoney(totalPrice)} 결제</Button>
                     </Row>
                 </Col>
                 <Col md={3}>

@@ -1,5 +1,7 @@
 import {useState,useEffect} from 'react';
 import { useLocation, useNavigate,Outlet,Link } from 'react-router-dom';
+
+import axiosInstance from '../../common/AxiosInstance';
 import {Container,Row,Col,Form } from 'react-bootstrap';
 import DaumPostcode from "react-daum-postcode";
 import { Modal, Button } from "antd";
@@ -9,19 +11,16 @@ const EditInfo = () => {
     const navigate = useNavigate(); 
     const {state} = useLocation();
     console.log(state) 
-
+    console.log(location)
     const [isOpen, setIsOpen] = useState(false);
-    const [inputAddressValue,setInputAddressValue]=useState('');
-    const [inputZipCodeValue,setInputZipCodeValue]=useState('');
-    const [editData,setEditData] = useState()
     
     const initialValue = {
-        kakaoNickname: "",
-        receive: "",
-        cellPhone: "",
-        postCode: "",
-        address: "",
-        addressDetail: "",
+        kakaoNickname: state.user.kakaoNickname,
+        receive: state.user.receive,
+        cellPhone: state.user.cellPhone,
+        postCode: state.user.postCode,
+        address: state.user.address,
+        addressDetail: state.user.addressDetail,
     };
     const [inputValues, setInputValues] = useState(initialValue);
     const {kakaoNickname, receive, cellPhone, addressDetail,address,postCode} = inputValues;	//비구조화 할당
@@ -42,13 +41,22 @@ const EditInfo = () => {
             address: data.address,
             postCode: data.zonecode,
           });
-        console.log(inputValues)
-        // setInputAddressValue(data.address);
-        // setInputZipCodeValue(data.zonecode);
       };
 
     const edit = () =>{
-        console.log(inputValues)
+        console.log(location)
+        axiosInstance.put(`${process.env.PUBLIC_URL}/user/`,inputValues,{
+            params: {
+                pathname: location.pathname,
+              },
+        }).then((response) => {
+            console.log(response)
+            navigate('/user/info/my')
+            
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     }
 
     return(

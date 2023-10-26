@@ -8,6 +8,9 @@ function Card({ data, lastItemRef,index}){
     const handleCardClick = () => {
         navigate(`/product/${data.prodNo}`);
       };
+    function formatMoney(amount) {
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
     return (
 
         <div key={data.prodNo} onClick={handleCardClick}>
@@ -20,7 +23,7 @@ function Card({ data, lastItemRef,index}){
             > 
             </span>
             <span>
-                {data.price}원
+                {formatMoney(data.price)}원
             </span>
         </div>
     );

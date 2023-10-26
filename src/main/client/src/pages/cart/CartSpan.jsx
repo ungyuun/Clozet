@@ -10,6 +10,10 @@ function CartSpan({cart,id,setToken,checkItemHandler,isAllChecked}){
     const [checked, setChecked] = useState(false); // 체크 여부 판단
     const [itemPrice,setItemPrice] = useState(cart.price*cart.amount)
 
+    function formatMoney(amount) {
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+
     const checkHandled = ({target}) => {
       setChecked(!checked);
       console.log(target.id, target.checked)
@@ -46,18 +50,18 @@ function CartSpan({cart,id,setToken,checkItemHandler,isAllChecked}){
                             <img src={cart.thumbnail} />
                         </NavLink>
                     </Col>  
-                    <Col id="header" md={6}>                                        
+                    <Col id="header" md={8}>                                        
                             <Row className="d-flex justify-content-between">
                                 <Col className="text-start"><h5>{cart.title}</h5></Col>
                                 <Col className="text-end"><CloseButton aria-label="Hide" onClick={deleteCart}/></Col>
                             </Row><br/>
                             <Row className="d-flex justify-content-between">
                                 <Col className="text-start"><span>수량 {cart.amount} | {cart.size}</span></Col>
-                                <Col className="text-end">{cart.price}원</Col>
+                                <Col className="text-end">{formatMoney(cart.price)}원</Col>
                             </Row><br/>
                             <Row className="d-flex justify-content-between">
                                 <Col className="text-start"><button> 수량|옵션 </button></Col>
-                                <Col className="text-end"><h5>{itemPrice}원</h5></Col>
+                                <Col className="text-end"><h5>{formatMoney(itemPrice)}원</h5></Col>
                             </Row>
                         <Row>
                                                     

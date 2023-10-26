@@ -18,6 +18,7 @@ const MyInfo = () => {
                 pathname: location.pathname,
               },
         }).then(({data}) => {
+            console.log(data)
             setUser(data)
         })
         .catch((error) => {
@@ -32,16 +33,17 @@ const MyInfo = () => {
         <>
         {   user && 
             <Container className="userInfo"><br/><br/>
+                <h5>배송지</h5><hr/>
                 <Row>        
-                    <Row id="name">
+                    <Row id="name" className="mb-3">
                         <Col>{user.kakaoNickname} {user.receive} </Col>
                     </Row>
-                    <Row id="phone">
+                    <Row id="phone" className="mb-3">
                         <Col>{user.cellPhone}</Col>
                     </Row>
-                    <Row id="address">
-                        <Col>({user.postCode}) {user.address} {user.detailAddress}</Col>
-                    </Row>
+                    <Row id="address" className="mb-3">
+                        <Col>({user.postCode}) {user.address} {user.detailAddress} {user.addressDetail}</Col>
+                    </Row><hr/>
                     <Row>
                         <Button variant="primary" onClick={editUser}>수정</Button> 
                     </Row>

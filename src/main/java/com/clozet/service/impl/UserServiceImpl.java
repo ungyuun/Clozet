@@ -30,25 +30,30 @@ public class UserServiceImpl implements UserService{
 	private final UserRepository userRepository;
 
 
-//	@Override
-//	public Map<String,Object> kakaoLogin(String authorizedCode) throws Exception {
-//		return kakaoOAuth2.kakaoLogin(authorizedCode);
-//	}
-
 	@Override
 	public void register(UserDto userDto) throws Exception {
 
 	}
 
-	public User getUser(HttpServletRequest request) { //(1)
-		//(2)
+	public User getUser(HttpServletRequest request) {
+
 		String kakaoEmail = (String) request.getAttribute("kakaoEmail");
-
-		//(3)
 		User user = userRepository.findByKakaoEmail(kakaoEmail);
-
-		//(4)
 		return user;
+	}
+
+	@Override
+	public void updateUser(HttpServletRequest request, UserDto userDto) {
+		String kakaoEmail = (String) request.getAttribute("kakaoEmail");
+		User user = userRepository.findByKakaoEmail(kakaoEmail);
+		user.setKakaoNickname(userDto.getKakaoNickname());
+		user.setPostCode(userDto.getPostCode());
+		user.setAddress(userDto.getAddress());
+		user.setAddressDetail(userDto.getAddressDetail());
+		user.setReceive(userDto.getReceive());
+		user.setCellPhone(userDto.getCellPhone());
+
+		userRepository.save(user);
 	}
 
 
