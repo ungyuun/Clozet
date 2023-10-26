@@ -33,16 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/cart/**").authenticated()
                 .anyRequest().permitAll();
 
-//                .and()
-//                //(1)
-//                .exceptionHandling()
-//                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
-//                .and()
-//                //(1)
-//                .exceptionHandling()
-//                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
         http
-                //여기 위에 부분 추가했음!!
                 .oauth2Login().loginPage("/auth/login");
 
         http.addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);

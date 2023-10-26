@@ -40,6 +40,12 @@ public class User {
     @CreationTimestamp
     private Timestamp createTime;
 
+    private String receive;
+    private String cellPhone;
+    private Long postCode;
+    private String address;
+    private String addressDetail;
+
     @Builder
     public User(Long kakaoId, String kakaoProfileImg, String kakaoNickname,
                 String kakaoEmail, String userRole) {

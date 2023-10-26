@@ -19,5 +19,10 @@ public class UserDto {
     String kakaoNickname;
     String userRole;
     Timestamp createTime;
+    String receive;
+    String cellPhone;
+    Long postCode;
+    String address;
+    String addressDetail;
 
 }

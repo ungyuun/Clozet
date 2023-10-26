@@ -1,6 +1,7 @@
 import LogoutHandler from '../../services/LogoutHandler';
 import "../../styles/header.css"; 
 import { useNavigate,useLocation,Link } from 'react-router-dom';
+import {  Button } from "antd";
 
 function Header() {
 
@@ -48,9 +49,8 @@ function Header() {
                         {
                                 isLoggedIn ? (
                                     <>
-                                        <button>{nickname}</button>
-                                        <img src={profile} />
-                                        <button onClick={Logout}>로그아웃</button>
+                                        <Button onClick={()=>navigate("/user/info/my")}>{nickname}</Button>
+                                        <Button onClick={Logout}>로그아웃</Button>
                                         
                                     </>
                                     
@@ -60,7 +60,7 @@ function Header() {
                                     </div>
                                 )
                         }    
-                        <form className="d-flex" role="search">
+                        <form className="d-flex ml-5" role="search">
                             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>

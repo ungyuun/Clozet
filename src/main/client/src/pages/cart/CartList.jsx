@@ -1,11 +1,13 @@
 import {useState,useEffect} from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axiosInstance from '../common/AxiosInstance';
 import CartSpan from './CartSpan';
 import {Container,Row,Col,Button,Form } from 'react-bootstrap';
+
 //https://egg-programmer.tistory.com/282
 function CartList(){
     const location = useLocation();
+    const navigate = useNavigate(); 
     const [cartList,setCartList] = useState([]);
     const [checkItems, setCheckItems] = useState(new Set())
     const [isAllChecked, setIsAllChecked] = useState(false);
@@ -41,18 +43,7 @@ function CartList(){
       if(checkItems.size === 0)
         alert("선택한 상품이 없습니다")
       else{
-        // axiosInstance.post(`${process.env.PUBLIC_URL}/cart/`,carts,{
-        //   params: {
-        //       pathname: location.pathname, // 이렇게 location 값을 요청에 전달
-        //     },
-        // })
-        // .then((response) => {
-        //     console.log(response.data);  
-        //     setCart(response.data);   
-        //     setShowCartModal(true);      
-        //   })
-        //   .catch((error) => {
-        //   });
+          navigate("/purchase/reciept",{state: { carts }})
       }
     }
 

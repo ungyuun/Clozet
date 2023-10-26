@@ -5,6 +5,7 @@ import Home from "./pages/common/Home"
 import Header from "./components/layout/Header";
 import UserRouter from "./pages/user/UserRouter";
 import ProductRouter from "./pages/product/ProductRouter";
+import PurchaseRouter from "./pages/purchase/PurchaseRouter";
 import CartList from "./pages/cart/CartList";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -25,6 +26,7 @@ function App() {
             
             <Route path="/user/*" element={<UserRouter />} />
             <Route path="/product/*" element={<ProductRouter />} />
+            <Route path="/purchase/*" element={<PurchaseRouter />} />
             <Route path="/auth/kakao/callback" element={<LoginHandeler />} />
             <Route path="/cart" element={<CartList />} />
           </Routes>
