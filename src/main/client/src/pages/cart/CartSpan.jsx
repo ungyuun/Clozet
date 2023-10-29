@@ -1,4 +1,5 @@
 import {Container,Row,Col,CloseButton } from 'react-bootstrap';
+import { Modal, Button } from "antd";
 import {useState,useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 import '../../styles/cart.css'
@@ -59,8 +60,8 @@ function CartSpan({cart,id,setToken,checkItemHandler,isAllChecked}){
                                 <Col className="text-start"><span>수량 {cart.amount} | {cart.size}</span></Col>
                                 <Col className="text-end">{formatMoney(cart.price)}원</Col>
                             </Row><br/>
-                            <Row className="d-flex justify-content-between">
-                                <Col className="text-start"><button> 수량|옵션 </button></Col>
+                            <Row className="d-flex justify-content-between mb-3">
+                                <Col className="text-start"><Button> 수량|옵션 </Button></Col>
                                 <Col className="text-end"><h5>{formatMoney(itemPrice)}원</h5></Col>
                             </Row>
                         <Row>

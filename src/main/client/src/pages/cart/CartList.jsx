@@ -3,7 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axiosInstance from '../common/AxiosInstance';
 import CartSpan from './CartSpan';
 import {Container,Row,Col,Button,Form } from 'react-bootstrap';
-
+import formatMoney from '../../services/SeperaterMoney';
+import CheckStock from '../../services/CheckStock';
+import StockModal from '../../components/StockModal';
 //https://egg-programmer.tistory.com/282
 function CartList(){
     const location = useLocation();
@@ -13,6 +15,8 @@ function CartList(){
     const [isAllChecked, setIsAllChecked] = useState(false);
     const [totalPrice,setTotalPrice] = useState(0);
     const [token,setToken] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [stock,setStock]=useState();  
     useEffect(()=>{
       const fetchData = async () => {
         try {
@@ -33,17 +37,29 @@ function CartList(){
         });
     }, [token]);
 
-    function formatMoney(amount) {
-      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    const onToggleModal = () => {
+      setIsOpen((prev) => !prev);
+    };
+
+    const errorCallback = (x) =>{
+      setStock(x)
+      setIsOpen(true)
     }
 
     const addReciept = () =>{
       const setToArray = Array.from(checkItems);
-      const carts = setToArray.map(item => item.cart); // set을 배열로 변경해 cart 삽입
+      const product = setToArray.map(item => item.cart); // set을 배열로 변경해 cart 삽입
       if(checkItems.size === 0)
         alert("선택한 상품이 없습니다")
       else{
-          navigate("/purchase/reciept",{state: { carts }})
+        CheckStock(errorCallback,product,location)
+        .then(() => {
+          navigate("/purchase/reciept",{state: { product }})
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+          
       }
     }
 
@@ -67,6 +83,7 @@ function CartList(){
       const allCheckedHandler = ({target}) => {
         console.log(cartList.map((cart, index) => ({ id: index, cart: cart })))
         if (target.checked) {
+          checkItems.clear();
           // setCheckItems(new Set(cartList.map((cart, index) => ({ id: index, cart: cart }))))
           cartList.map((cart, index) => {
             checkItems.add({ id: index, cart: cart })
@@ -122,14 +139,16 @@ function CartList(){
                         }
                     </Row>
                     <Row>
-                      <Button onClick={addReciept}>총 {checkItems.size}개 | {formatMoney(totalPrice)} 결제</Button>
+                      <Button className="mb-3" onClick={addReciept}>총 {checkItems.size}개 | {formatMoney(totalPrice)} 결제</Button>
                     </Row>
                 </Col>
                 <Col md={3}>
 
                 </Col>
             </Row>
-            
+            {isOpen && (
+                <StockModal stock={stock} onToggleModal={onToggleModal} />
+            )}
       </Container>
     )
 }

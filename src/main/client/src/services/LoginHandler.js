@@ -11,7 +11,7 @@ const LoginHandeler = (props) => {
     const kakaoLogin = async () => {
       await axios({
         method: "GET",
-        url: `${process.env.REACT_APP_BIT_REDIRECT_URL}/?code=${code}`,
+        url: `${process.env.REACT_APP_REDIRECT_URL}/?code=${code}`,
         
       }).then((res) => { //백에서 완료후 우리사이트 전용 토큰 넘겨주는게 성공했다면
         console.log(res);

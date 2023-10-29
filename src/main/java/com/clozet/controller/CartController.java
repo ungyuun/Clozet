@@ -17,6 +17,7 @@ import com.clozet.model.entity.Product;
 import com.clozet.service.CartService;
 import com.clozet.service.ProductService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,10 +35,11 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/cart/*")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CartController {
 
     private final CartService cartService;
+    private final ProductService productService;
 
     @GetMapping("/")
     public ResponseEntity<List<CartDto>> getCart(HttpServletRequest request){
@@ -64,5 +66,27 @@ public class CartController {
         System.out.println(cartId);
         cartService.deleteCart(cartId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PostMapping("/check")
+    public ResponseEntity<?> checkStock(@RequestBody List<CartDto> cartDtoList) throws Exception {
+
+        List<CartDto> isNotStock= new ArrayList<>();
+        try {
+            for (CartDto cartDto : cartDtoList){
+                System.out.println(cartDto.toString());
+                CartDto notStock = productService.checkStock(cartDto);
+                if (notStock != null) {
+                    isNotStock.add(notStock);
+                    System.out.println("재고없는 "+cartDto.toString());
+                }
+            }
+            if (!isNotStock.isEmpty())
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(isNotStock);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 요청: " + e.getMessage());
+        }
     }
 }

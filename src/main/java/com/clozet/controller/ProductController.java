@@ -81,6 +81,7 @@ public class ProductController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
 		}
 	}
+
 //	//@RequestMapping("/addProductView.do")
 //	@RequestMapping(value = "addProduct",method = RequestMethod.GET)
 //	public String addProductView() throws Exception{

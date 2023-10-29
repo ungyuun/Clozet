@@ -3,18 +3,22 @@ import {useState,useEffect} from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Form, Row, Col,Button} from 'react-bootstrap';
 import axiosInstance from '../../common/AxiosInstance';
-import axios from 'axios';
 import CartModal from '../../cart/CartModal';
-import { useLocation } from 'react-router-dom';
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import formatMoney from '../../../services/SeperaterMoney';
+import StockModal from '../../../components/StockModal';
+import CheckStock from '../../../services/CheckStock';
 function ProductOrder({data}){
 
     const [options,setOptions] = useState({});
     const location = useLocation();
+    const navigate = useNavigate();
     const price = data.product.price;
     const [sum, setSum] = useState(0);
     const [showCartModal, setShowCartModal] = useState(false);
     const [cart,setCart] = useState();
+    const [isOpen, setIsOpen] = useState(false);
+    const [stock,setStock]=useState();         
 
     const handleOptionSelect = (idx, opt, price) => {
         // 동적 키를 가진 새 객체를 만듭니다
@@ -23,6 +27,8 @@ function ProductOrder({data}){
     // 해당 idx에 대한 옵션 정보 업데이트 또는 추가
         newOptions[idx] = {
             prodNo: data.product.prodNo,
+            title: data.product.title,
+            thumbnail:data.product.thumbnail,
             email:sessionStorage.getItem("email"),
             size: opt,
             price: price,
@@ -85,24 +91,45 @@ function ProductOrder({data}){
       setSum(totalPrice);
     };
 
-    function formatMoney(amount) {
-      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    
+    const onToggleModal = () => {
+      setIsOpen((prev) => !prev);
+    };
+    
+    const errorCallback = () =>{
+      setStock(Object.values(options))
+      setIsOpen(true)
     }
 
     function addCart(){
       
-      axiosInstance.post(`${process.env.PUBLIC_URL}/cart/`, Object.values(options),{
-        params: {
-            pathname: location.pathname, // 이렇게 location 값을 요청에 전달
-          },
-      })
-      .then((response) => {
-          console.log(response.data);  
-          setCart(response.data);   
-          setShowCartModal(true);      
-        })
-        .catch((error) => {
-        });
+      CheckStock(errorCallback,Object.values(options),location)
+          .then(() => {
+              axiosInstance.post(`${process.env.PUBLIC_URL}/cart/`, Object.values(options),{
+                params: {
+                    pathname: location.pathname, // 이렇게 location 값을 요청에 전달
+                  },
+              })
+              .then((response) => {
+                  console.log(response.data);       
+                })
+                .catch((error) => {
+                });
+          })
+          .catch((error) => {
+            console.log(error)
+          });
+    }
+    const addReciept = () =>{
+      const product = Object.values(options);
+      CheckStock(errorCallback,product,location)
+          .then(() => {
+              navigate("/purchase/reciept", { state: { product } });
+          })
+          .catch((error) => {
+            console.log(error)
+          });
+    
     }
     useEffect(()=>(
         updateSum()
@@ -169,11 +196,15 @@ function ProductOrder({data}){
                     <Button className="primary" onClick={addCart}>장바구니</Button>
                 </Col>
                 <Col md={6}>
-                    <Button className="primary">구매</Button>
+                    <Button className="primary" onClick={addReciept}>구매</Button>
                 </Col>
             </Row>
             {showCartModal && <CartModal setShowCartModal={setShowCartModal} />}
           </div>
+          
+          {isOpen && (
+                <StockModal stock={stock} onToggleModal={onToggleModal} />
+            )}
         </div>
     )
 }

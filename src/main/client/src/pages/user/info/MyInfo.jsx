@@ -32,11 +32,12 @@ const MyInfo = () => {
     return(
         <>
         {   user && 
-            <Container className="userInfo"><br/><br/>
+            <Container className="userInfo"><br/>
                 <h5>배송지</h5><hr/>
                 <Row>        
                     <Row id="name" className="mb-3">
                         <Col>{user.kakaoNickname} {user.receive} </Col>
+                        <Col><Button variant="primary" onClick={editUser}>수정</Button> </Col>
                     </Row>
                     <Row id="phone" className="mb-3">
                         <Col>{user.cellPhone}</Col>
@@ -44,9 +45,6 @@ const MyInfo = () => {
                     <Row id="address" className="mb-3">
                         <Col>({user.postCode}) {user.address} {user.detailAddress} {user.addressDetail}</Col>
                     </Row><hr/>
-                    <Row>
-                        <Button variant="primary" onClick={editUser}>수정</Button> 
-                    </Row>
                 </Row>
             </Container>
         }

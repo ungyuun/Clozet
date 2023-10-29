@@ -106,6 +106,19 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    @Override
+    public CartDto checkStock(CartDto cartDto) {
+
+        Product product = productRepository.findByProdNo(cartDto.getProdNo());
+        List<ProductDetail> productDetail = product.getProductDetail();
+        for (ProductDetail detail : productDetail){
+            if (detail.getAmount() < cartDto.getAmount())
+                cartDto.setAmount(detail.getAmount());
+                return cartDto;
+        }
+        return null;
+    }
+
 
 }
 
