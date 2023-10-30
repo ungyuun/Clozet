@@ -73,18 +73,15 @@ public class CartController {
         List<CartDto> isNotStock= new ArrayList<>();
         try {
             for (CartDto cartDto : cartDtoList){
-                System.out.println(cartDto.toString());
                 CartDto notStock = productService.checkStock(cartDto);
+
                 if (notStock != null) {
                     isNotStock.add(notStock);
-                    System.out.println("재고없는 "+cartDto.toString());
                 }
             }
             if (!isNotStock.isEmpty())
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(isNotStock);
-
             return new ResponseEntity<>(HttpStatus.OK);
-
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 요청: " + e.getMessage());
         }

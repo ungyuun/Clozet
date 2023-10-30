@@ -96,8 +96,8 @@ function ProductOrder({data}){
       setIsOpen((prev) => !prev);
     };
     
-    const errorCallback = () =>{
-      setStock(Object.values(options))
+    const errorCallback = (x) =>{
+      setStock(x)
       setIsOpen(true)
     }
 
@@ -107,12 +107,14 @@ function ProductOrder({data}){
           .then(() => {
               axiosInstance.post(`${process.env.PUBLIC_URL}/cart/`, Object.values(options),{
                 params: {
-                    pathname: location.pathname, // 이렇게 location 값을 요청에 전달
+                    pathname: location.pathname, 
                   },
               })
               .then((response) => {
                   console.log(response.data);       
-                })
+                  setCart(response.data);   
+                  setShowCartModal(true);                  
+                 })
                 .catch((error) => {
                 });
           })

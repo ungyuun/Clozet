@@ -8,12 +8,9 @@ const CheckStock = (errorCallback,product,location) => {
             params: {
                 pathname: location.pathname,
             },
-        
             }).then((response) => {
-                console.log("good");
                 resolve();
             }).catch((error) => {
-                console.log("error");
                 errorCallback(error.response.data);
                 reject(error);
             });

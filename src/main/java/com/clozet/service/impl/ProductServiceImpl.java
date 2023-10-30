@@ -112,9 +112,10 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findByProdNo(cartDto.getProdNo());
         List<ProductDetail> productDetail = product.getProductDetail();
         for (ProductDetail detail : productDetail){
-            if (detail.getAmount() < cartDto.getAmount())
+            if (detail.getAmount() < cartDto.getAmount()) {
                 cartDto.setAmount(detail.getAmount());
                 return cartDto;
+            }
         }
         return null;
     }

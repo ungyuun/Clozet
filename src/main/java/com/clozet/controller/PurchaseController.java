@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/purchase/*")
 public class PurchaseController {
 
-//	private PurchaseService purchaseService;
+	private final PurchaseService purchaseService;
 
 //	@PostMapping("/check")
 //	public ResponseEntity<?> checkStock(@RequestBody List<ProductDto> productListDto) throws Exception {
@@ -32,14 +32,11 @@ public class PurchaseController {
 //			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
 //		}
 //	}
-//	@PostMapping("/")
-//	public ResponseEntity<Void> addCart(@RequestBody List<CartDto> cartDtos) throws Exception{
-//		System.out.println("hi");
-//		for (CartDto cartDto : cartDtos){
-//			System.out.println(cartDto.toString());
-//		}
-//		cartService.addCartList(cartDtos);
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
+	@PostMapping("/")
+	public ResponseEntity<?> addPurchase(@RequestBody PurchaseDto purchaseDto) throws Exception{
+
+        purchaseDto = purchaseService.addPurchase(purchaseDto);
+		return new ResponseEntity<>(purchaseDto,HttpStatus.OK);
+	}
 
 }

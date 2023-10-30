@@ -19,7 +19,7 @@ function UserInfo(){
                     <ul className="userList">
                         <li onClick={()=>navigate('/user/info/my')}>내 정보</li>
                         <li>구매 내역</li>
-                        <li onClick={()=>navigate('/user/info/cart')}>장바구니</li>
+                        <li onClick={()=>navigate('/cart')}>장바구니</li>
                         <li>댓글 기록</li>
                         <li>좋아요</li>
                         <li>문의</li>

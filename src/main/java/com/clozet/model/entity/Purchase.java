@@ -1,57 +1,67 @@
 package com.clozet.model.entity;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
+import com.clozet.model.dto.CartDto;
+import com.clozet.model.dto.UserDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.sql.Date;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Purchase {
+@Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Purchase extends BaseEntity  {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long tranNo;
-//
-//    private Long rownum;
-//    @OneToOne
-//    @JoinColumn(name="userid")
-//    private User user;
-//
-//    @OneToOne
-//    @JoinColumn(name="prodno")
-//    private Product product;
-//
-//    private char paymentOption;
-//
-//    private String receiverName;
-//
-//    private String receiverPhone;
-//
-//    private String dlvyAddr;
-//
-//    private String dlvyRequest;
-//
-//    private char tranCode;
-//
-//    private Date orderDate;
-//
-//    private String dlvyDate;
-//
-//    public Purchase(Long tranNo, Long rownum, User user, Product product, char paymentOption, String receiverName, String receiverPhone, String dlvyAddr, String dlvyRequest, char tranCode, Date orderDate, String dlvyDate) {
-//        this.tranNo = tranNo;
-//        this.rownum = rownum;
-//        this.user = user;
-//        this.product = product;
-//        this.paymentOption = paymentOption;
-//        this.receiverName = receiverName;
-//        this.receiverPhone = receiverPhone;
-//        this.dlvyAddr = dlvyAddr;
-//        this.dlvyRequest = dlvyRequest;
-//        this.tranCode = tranCode;
-//        this.orderDate = orderDate;
-//        this.dlvyDate = dlvyDate;
-//    }
-//
-//    public Purchase() {
-//
-//    }
+    @Id @Column(name = "paymentId")
+    private String paymentId;
+    private String merchant_uid;
+    private String deleveryOption;
+    private String selectedPayment;
+    private Long totalPrice;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JoinColumn(name="paymentId")
+    private List<PurchaseList> purchaseList = new ArrayList<>();
+
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "kakao_email")
+    private User user;
+
+
+    public Purchase(String paymentId, String merchant_uid, String deleveryOption, String selectedPayment, Long totalPrice, List<PurchaseList> purchaseList, User user) {
+        this.paymentId = paymentId;
+        this.merchant_uid = merchant_uid;
+        this.deleveryOption = deleveryOption;
+        this.selectedPayment = selectedPayment;
+        this.totalPrice = totalPrice;
+        this.purchaseList = purchaseList;
+        this.user = user;
+    }
+
+    @Builder
+
+
+
+
+
+    @Override
+    public String toString() {
+        return "Purchase{" +
+                "paymentId='" + paymentId + '\'' +
+                ", merchant_uid='" + merchant_uid + '\'' +
+                ", deleveryOption='" + deleveryOption + '\'' +
+                ", selectedPayment='" + selectedPayment + '\'' +
+                ", totalPrice=" + totalPrice +
+                ", purchaseList=" + purchaseList +
+                ", user=" + user +
+                '}';
+    }
 }

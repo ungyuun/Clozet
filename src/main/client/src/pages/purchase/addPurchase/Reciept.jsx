@@ -1,4 +1,4 @@
-import { useLocation,Link } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import { useState,useEffect } from "react";
 import {Container,Row,Col,Form,Button } from 'react-bootstrap';
 import PurchaseSpan from "./PurchaseSpan";
@@ -8,15 +8,17 @@ import SeperaterMoney from '../../../services/SeperaterMoney';
 
 import CheckStock from "../../../services/CheckStock";
 import StockModal from "../../../components/StockModal";
+import Payment from "../../../services/Payment";
 
 const Reciept = () => {
     const {state} = useLocation();
-    const location = useLocation();         
-    
-    const [deleveryOption,setDeleveryOption] = useState(["배송 시 요청사항을 선택해주세요","부재 시 경비실에 맡겨주세요","부재 시 택배함에 넣어주세요",
+    const location = useLocation();    
+    const navigate = useNavigate();     
+    const [user,setUser] = useState('');
+    const [deleveryOption,setDeleveryOption] = useState(["부재 시 경비실에 맡겨주세요","부재 시 택배함에 넣어주세요",
                                                     "부재 시 집 앞에 놔주세요","배송 전 연락 바랍니다","파손의 위험이 있는 상품입니다. 배송시 주의해주세요."  
                                                 ]);
-    const [selectedPayment, setSelectedPayment] = useState('');
+    const [selectedPayment, setSelectedPayment] = useState();
     const [totalPrice,setTotalPrice] = useState(0)      
     const [isOpen, setIsOpen] = useState(false);
     const [stock,setStock]=useState();         
@@ -30,6 +32,10 @@ const Reciept = () => {
         setSelectedOption(event.target.value); 
     };
     
+    const getUser = (data) => {
+        setUser(data)
+    }
+
     
     const onToggleModal = () => {
         setIsOpen((prev) => !prev);
@@ -66,34 +72,26 @@ const Reciept = () => {
             product: state.product,
             deleveryOption: selectedOption,
             selectedPayment: selectedPayment,
-            totalPrice: totalPrice
+            totalPrice: totalPrice,
+            user: user
         };
-    
+        
+        console.log(newPurchaseOption);
         CheckStock(errorCallback,state.product,location)
         .then(() => {
-            // <Payment purchaseOption={purchaseOption}/>
+            newPurchaseOption.user = user;
+            Payment(newPurchaseOption,location,navigate);
         })
         .catch((error) => {
           console.log(error)
         });
-        console.log(newPurchaseOption);
-        // axiosInstance.post(`${process.env.PUBLIC_URL}/cart/check`,state.product,{
-        //     params: {
-        //         pathname: location.pathname,
-        //       },
-        // }).then((response) => {
-        //     console.log("good")
-        //     // <Payment purchaseOption={purchaseOption}/>
-        // })
-        // .catch((error) => {
-        //     setStock(error.response.data)
-        //     setIsOpen(true)
-        // });
+        
+        
         
     }
     useEffect(()=>{
-        console.log(selectedPayment)
         countPrice()
+        
     },[selectedPayment])
 
     return(
@@ -111,11 +109,11 @@ const Reciept = () => {
                 <Col md={1}></Col>
                 <Col md={6}>
                     <Row>
-                        <MyInfo />
+                        <MyInfo getUser={getUser}/>
                     </Row>
                     <Row>
                         <Form.Select value={selectedOption} onChange={handleOptionChange}>
-                            <option>배송 옵션 선택</option>
+                            <option>배송 시 요청사항을 선택해주세요</option>
                             {deleveryOption.map((opt,idx)=>(
                                 <option key={idx} value={opt}>{opt}</option>
                             ))}

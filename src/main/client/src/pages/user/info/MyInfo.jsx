@@ -6,7 +6,7 @@ import {Container,Row,Col,Form } from 'react-bootstrap';
 
 import { Button } from "antd";
 import '../../../styles/user.css'
-const MyInfo = () => {
+const MyInfo = ({getUser}) => {
     const location = useLocation();
     const navigate = useNavigate(); 
     
@@ -20,6 +20,7 @@ const MyInfo = () => {
         }).then(({data}) => {
             console.log(data)
             setUser(data)
+            getUser(data)
         })
         .catch((error) => {
         })
