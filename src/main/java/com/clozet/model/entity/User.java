@@ -4,6 +4,7 @@ import javax.management.relation.Role;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -45,6 +46,11 @@ public class User {
     private String postCode;
     private String address;
     private String addressDetail;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JoinColumn(name="paymentId")
+    private List<Purchase> purchase = new ArrayList<>();
 
     @Builder
     public User(Long kakaoId, String kakaoProfileImg, String kakaoNickname,

@@ -7,6 +7,7 @@
 .userList li {
     position: relative;
     padding: 20px;
+    width: 250px;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     transition: background-color 0.2s;
@@ -19,4 +20,10 @@
 
 .userInfo {
   font-size: 20px;
+}
+ul.userList {
+  position: fixed;
+  width: 250px;
+  
+  margin-left: 50px; /* 필요한 여백을 설정 */
 }

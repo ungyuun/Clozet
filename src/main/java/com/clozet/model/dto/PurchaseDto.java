@@ -28,16 +28,4 @@ public class PurchaseDto {
 	private UserDto user;
 	private LocalDate regDate;
 
-	@Override
-	public String toString() {
-		return "PurchaseDto{" +
-				"paymentId='" + paymentId + '\'' +
-				", merchant_uid='" + merchant_uid + '\'' +
-				", product=" + product +
-				", deleveryOption='" + deleveryOption + '\'' +
-				", selectedPayment='" + selectedPayment + '\'' +
-				", totalPrice=" + totalPrice +
-				", user=" + user +
-				'}';
-	}
 }

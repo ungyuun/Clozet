@@ -16,6 +16,7 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Purchase extends BaseEntity  {
 
@@ -27,15 +28,16 @@ public class Purchase extends BaseEntity  {
     private Long totalPrice;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JsonIgnore
     @JoinColumn(name="paymentId")
     private List<PurchaseList> purchaseList = new ArrayList<>();
 
     @ManyToOne (fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "kakao_email")
     private User user;
 
 
+    @Builder
     public Purchase(String paymentId, String merchant_uid, String deleveryOption, String selectedPayment, Long totalPrice, List<PurchaseList> purchaseList, User user) {
         this.paymentId = paymentId;
         this.merchant_uid = merchant_uid;
@@ -45,12 +47,6 @@ public class Purchase extends BaseEntity  {
         this.purchaseList = purchaseList;
         this.user = user;
     }
-
-    @Builder
-
-
-
-
 
     @Override
     public String toString() {

@@ -28,17 +28,4 @@ public class PurchaseList {
     private Long price;
     private Long amount;
 
-    @Override
-    public String toString() {
-        return "PurchaseList{" +
-                "purchaseId=" + purchaseId +
-                ", purchase=" + purchase +
-                ", prodNo=" + prodNo +
-                ", title='" + title + '\'' +
-                ", thumbnail='" + thumbnail + '\'' +
-                ", size='" + size + '\'' +
-                ", price=" + price +
-                ", amount=" + amount +
-                '}';
-    }
 }

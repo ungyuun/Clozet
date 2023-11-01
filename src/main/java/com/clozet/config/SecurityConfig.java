@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(corsFilter)
                 .authorizeRequests()
                 .antMatchers("/cart/**").authenticated()
+                .antMatchers("/purchase/**").authenticated()
                 .anyRequest().permitAll();
 
         http

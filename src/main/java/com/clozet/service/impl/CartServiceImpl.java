@@ -50,10 +50,8 @@ public class CartServiceImpl implements CartService {
         List<CartDto> cartDtoList = new ArrayList<>();
         List<Cart> cartList = cartRepository.findAllByUserKakaoEmail(kakaoEmail);
         for (Cart cart : cartList){
-            System.out.println(cart.toString());
             CartDto cartDto = CartMapper.INSTANCE.toDto(cart);
             cartDtoList.add(cartDto);
-            System.out.println(cartDto.toString());
         }
         return cartDtoList;
     }
