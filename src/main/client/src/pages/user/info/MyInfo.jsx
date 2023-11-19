@@ -13,7 +13,7 @@ const MyInfo = ({getUser}) => {
     const [user,setUser] = useState();
 
     useEffect(()=>{
-        axiosInstance.get(`${process.env.PUBLIC_URL}/user/`,{
+        axiosInstance.get(`${process.env.PUBLIC_URL}/api/user/`,{
             params: {
                 pathname: location.pathname,
               },
@@ -37,7 +37,7 @@ const MyInfo = ({getUser}) => {
                 <h5>배송지</h5><hr/>
                 <Row>        
                     <Row id="name" className="mb-3">
-                        <Col>{user.kakaoNickname} {user.receive} </Col>
+                        <Col>{user.kakaoNickname} ({user.receive}) </Col>
                         <Col><Button variant="primary" onClick={editUser}>수정</Button> </Col>
                     </Row>
                     <Row id="phone" className="mb-3">

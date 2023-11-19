@@ -24,7 +24,7 @@ const PurchaseList = () => {
 
     async function getProduct(page) {
       try {
-          const res = await axiosInstance.get(`${process.env.PUBLIC_URL}/purchase/list?page=${page}`, {
+          const res = await axiosInstance.get(`${process.env.PUBLIC_URL}/api/purchase/list?page=${page}`, {
             params: {
               pathname: location.pathname,
             },

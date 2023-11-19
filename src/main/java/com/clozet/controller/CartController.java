@@ -33,8 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/cart/*")
+@RequestMapping("/api/cart/*")
 @RequiredArgsConstructor
 public class CartController {
 

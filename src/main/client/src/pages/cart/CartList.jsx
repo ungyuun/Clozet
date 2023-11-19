@@ -21,7 +21,7 @@ function CartList(){
       const fetchData = async () => {
         try {
           console.log("a");
-          const {data} = await axiosInstance.get(`${process.env.PUBLIC_URL}/cart/`, {
+          const {data} = await axiosInstance.get(`${process.env.PUBLIC_URL}/api/cart/`, {
             params: {
               pathname: location.pathname,
             },

@@ -26,6 +26,7 @@ public class Purchase extends BaseEntity  {
     private String deleveryOption;
     private String selectedPayment;
     private Long totalPrice;
+    private PurchaseType purchaseType;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="paymentId")
@@ -37,16 +38,19 @@ public class Purchase extends BaseEntity  {
     private User user;
 
 
-    @Builder
-    public Purchase(String paymentId, String merchant_uid, String deleveryOption, String selectedPayment, Long totalPrice, List<PurchaseList> purchaseList, User user) {
+    public Purchase(String paymentId, String merchant_uid, String deleveryOption, String selectedPayment, Long totalPrice, PurchaseType purchaseType, List<PurchaseList> purchaseList, User user) {
         this.paymentId = paymentId;
         this.merchant_uid = merchant_uid;
         this.deleveryOption = deleveryOption;
         this.selectedPayment = selectedPayment;
         this.totalPrice = totalPrice;
+        this.purchaseType = purchaseType;
         this.purchaseList = purchaseList;
         this.user = user;
     }
+
+    @Builder
+
 
     @Override
     public String toString() {

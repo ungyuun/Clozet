@@ -2,6 +2,7 @@ package com.clozet.model.dto;
 
 
 
+import com.clozet.model.entity.PurchaseType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class PurchaseDto {
 	private List<CartDto> product;
 	private String deleveryOption;
 	private String selectedPayment;
+	private PurchaseType purchaseType;
 	private Long totalPrice;
 	private UserDto user;
 	private LocalDate regDate;

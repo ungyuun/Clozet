@@ -30,12 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilter(corsFilter)
                 .authorizeRequests()
-                .antMatchers("/cart/**").authenticated()
-                .antMatchers("/purchase/**").authenticated()
+                .antMatchers("/api/cart/**").authenticated()
+                .antMatchers("/api/purchase/**").authenticated()
                 .anyRequest().permitAll();
 
         http
-                .oauth2Login().loginPage("/auth/login");
+                .oauth2Login().loginPage("/api/auth/login");
 
         http.addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
     }

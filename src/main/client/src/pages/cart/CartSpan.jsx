@@ -23,7 +23,7 @@ function CartSpan({cart,id,setToken,checkItemHandler,isAllChecked}){
     const allCheckHandler = () => setChecked(isAllChecked);
 
     const deleteCart = () =>{
-        axiosInstance.delete(`${process.env.PUBLIC_URL}/cart/${cart.id}`,{
+        axiosInstance.delete(`${process.env.PUBLIC_URL}/api/cart/${cart.id}`,{
             params: {
                 pathname: location.pathname,
               },

@@ -23,6 +23,7 @@ function UserInfo(){
                         <li>댓글 기록</li>
                         <li>좋아요</li>
                         <li>문의</li>
+                        <li onClick={()=>navigate('/user/info/boundary')}>내 동네 인증</li>
                     </ul>
                 </Row>
                 </Col>

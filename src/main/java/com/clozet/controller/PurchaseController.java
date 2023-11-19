@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/purchase/*")
+@RequestMapping("/api/purchase/*")
 public class PurchaseController {
 
 	private final PurchaseService purchaseService;

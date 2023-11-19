@@ -10,12 +10,12 @@ public class MainController {
 	public MainController(){
 		System.out.println("==> MainController default Constructor call.............");
 	}
-
-	@GetMapping("/")
-	public String index() {
-		
-		System.out.println("[ MainController.index() start........]");
-		return "hi";
-		
-	}
+//
+//	@GetMapping("/")
+//	public String index() {
+//
+//		System.out.println("[ MainController.index() start........]");
+//		return "hi";
+//
+//	}
 }

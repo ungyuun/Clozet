@@ -13,7 +13,7 @@ const ImageUpload = forwardRef(({ onImageUpload }, ref) => {
         formData.append('file', file); // 파일을 FormData에 추가
   
         // Axios를 사용하여 스프링 서버로 파일 업로드 요청 보내기
-        axios.post(`${process.env.PUBLIC_URL}/product/img`, formData, {
+        axios.post(`${process.env.PUBLIC_URL}/api/product/img`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data', // 파일 업로드를 위한 헤더 설정
           },

@@ -23,7 +23,7 @@ function Main() {
 
     async function getProduct(page) {
       try {
-          const res = await axios.get(`${process.env.PUBLIC_URL}/product/main?page=${page}`);
+          const res = await axios.get(`${process.env.PUBLIC_URL}/api/product/main?page=${page}`);
           const result = res.data;
           console.log(result);
           return {

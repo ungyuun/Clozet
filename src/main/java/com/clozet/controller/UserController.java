@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 //==> 회원관리 Controller
 @RestController
-@RequestMapping("/user/*")
+@RequestMapping("/api/user/*")
 public class UserController {
 
 	@Autowired

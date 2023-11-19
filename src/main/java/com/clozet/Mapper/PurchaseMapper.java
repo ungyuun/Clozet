@@ -20,6 +20,7 @@ public interface PurchaseMapper {
                         .deleveryOption(purchase.getDeleveryOption())
                         .selectedPayment(purchase.getSelectedPayment())
                         .totalPrice(purchase.getTotalPrice())
+                        .purchaseType(purchase.getPurchaseType())
                         .user(UserMapper.INSTANCE.toDto(purchase.getUser()))
                         .regDate(purchase.getRegDate())
                         .product(PurchaseMapper.INSTANCE.toPurchaseListtoCartDto(purchase.getPurchaseList())).build();
@@ -34,6 +35,7 @@ public interface PurchaseMapper {
                 .merchant_uid(purchaseDto.getMerchant_uid())
                 .deleveryOption(purchaseDto.getDeleveryOption())
                 .selectedPayment(purchaseDto.getSelectedPayment())
+                .purchaseType(purchaseDto.getPurchaseType())
                 .totalPrice(purchaseDto.getTotalPrice())
                 .user(UserMapper.INSTANCE.toEntity(purchaseDto.getUser()))
                 .purchaseList(PurchaseMapper.INSTANCE.toCartDtoPurchaseList(purchaseDto.getProduct()))

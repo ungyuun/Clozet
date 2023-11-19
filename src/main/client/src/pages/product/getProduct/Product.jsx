@@ -12,7 +12,7 @@ function Product(){
     const [data,setData] = useState();
     useEffect(() => {
       console.log("aa")
-      axios.get(`${process.env.PUBLIC_URL}/product/${prodNo}`) 
+      axios.get(`${process.env.PUBLIC_URL}/api/product/${prodNo}`) 
               .then((response) => {
                 console.log("GET 요청 성공");
                 console.log(response.data);

@@ -48,7 +48,7 @@ function callback(response, option,data,location,navigate) {
   } = response;
   if (success) {
     
-    axiosInstance.post(`${process.env.PUBLIC_URL}/purchase/`, option,{
+    axiosInstance.post(`${process.env.PUBLIC_URL}/api/purchase/`, option,{
       params: {
           pathname: location.pathname, 
         },

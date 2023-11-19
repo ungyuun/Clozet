@@ -36,7 +36,7 @@ function ProductForm(){
             price : price
           };
           console.log(JSON.stringify(formData));
-          axios.post(`${process.env.PUBLIC_URL}/product/newproduct`,formData,{
+          axios.post(`${process.env.PUBLIC_URL}/api/product/newproduct`,formData,{
             headers: {"Content-Type": "application/json",},
           })
           .then((response) => {

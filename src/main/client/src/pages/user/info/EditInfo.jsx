@@ -45,7 +45,7 @@ const EditInfo = () => {
 
     const edit = () =>{
         console.log(location)
-        axiosInstance.put(`${process.env.PUBLIC_URL}/user/`,inputValues,{
+        axiosInstance.put(`${process.env.PUBLIC_URL}/api/user/`,inputValues,{
             params: {
                 pathname: location.pathname,
               },

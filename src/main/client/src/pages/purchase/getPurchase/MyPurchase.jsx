@@ -1,12 +1,17 @@
 import react from 'react';
 import { useNavigate,NavLink } from 'react-router-dom';
-import {Container,Row,Col,Form,Button } from 'react-bootstrap';
+import {Container,Row,Col,Form } from 'react-bootstrap';
+import { Button } from "antd";
 
 import formatDateToYYYYMMDD from '../../../services/FormatDateTo';
 import formatMoney from '../../../services/SeperaterMoney';
 
 function MyPurchase({ data, lastItemRef,index}){
     const navigate = useNavigate();
+
+    const handleCardClick = (item) => {
+        navigate(`/product/${item.prodNo}`);
+      };
 
     const getPurchase = () => {
         navigate(`/purchase/${data.paymentId}`)
@@ -19,11 +24,16 @@ function MyPurchase({ data, lastItemRef,index}){
             </Col>
             <Col className="text-end">{formatDateToYYYYMMDD(data.regDate)}</Col>
         </Row><br/>
+        <Row>
+            <Col>
+            {/* 상품 상태 정의 */}
+            </Col>
+        </Row>
         {data.purchaseList.map((item,idx)=>(
             <Row><hr/>
                 <Col md={1}>           
                 </Col>
-                <Col className="cartthumbnail" md={2}>
+                <Col className="cartthumbnail" md={2} onClick={()=>handleCardClick(item)}>
                     <img src={item.thumbnail} />
                 </Col>  
                 <Col md={1}>           
@@ -39,6 +49,9 @@ function MyPurchase({ data, lastItemRef,index}){
                 </Col><hr/>
             </Row>
         ))}
+        <Row className="d-grid gap-2 mt-4">
+            <Col className="text-end"><Button>결제 취소</Button></Col>
+        </Row>
         
         <span
                 ref={lastItemRef}
@@ -46,16 +59,6 @@ function MyPurchase({ data, lastItemRef,index}){
             </span>
         </Container>
 
-        // <div key={data.prodNo} onClick={handleCardClick}>
-        //     <p><img className="product-image-container" src={data.thumbnail} /></p>
-        //     <p>
-        //         {data.title}
-        //     </p>           
-            
-        //     <span>
-        //         {formatMoney(data.price)}원
-        //     </span>
-        // </div>
     );
 }
 export default MyPurchase;

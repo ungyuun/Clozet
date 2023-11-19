@@ -105,7 +105,7 @@ function ProductOrder({data}){
       
       CheckStock(errorCallback,Object.values(options),location)
           .then(() => {
-              axiosInstance.post(`${process.env.PUBLIC_URL}/cart/`, Object.values(options),{
+              axiosInstance.post(`${process.env.PUBLIC_URL}/api/cart/`, Object.values(options),{
                 params: {
                     pathname: location.pathname, 
                   },

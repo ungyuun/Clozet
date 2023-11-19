@@ -18,7 +18,7 @@ function Editor({ editorData, onChange,setDesc,desc}){
             data.append("file",file);
             console.log(data)
             console.log(file)
-            axios.post(`${process.env.PUBLIC_URL}/product/img`,data)
+            axios.post(`${process.env.PUBLIC_URL}/api/product/img`,data)
               .then((res)=>{
                 onChange(res.data);
                 
