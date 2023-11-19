@@ -28,5 +28,7 @@ public interface ProductService {
 
 	public Page<Product> getProductList(int page,int size) throws  Exception;
 
+	public Page<Product> getSearchProduct(int page,int size,String keyword) throws  Exception;
+
     CartDto checkStock(CartDto cartDto);
 }

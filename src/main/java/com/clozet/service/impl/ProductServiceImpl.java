@@ -107,6 +107,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<Product> getSearchProduct(int page, int size, String keyword) throws Exception {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findByTitleContaining(keyword,pageable);
+    }
+
+    @Override
     public CartDto checkStock(CartDto cartDto) {
 
         Product product = productRepository.findByProdNo(cartDto.getProdNo());
